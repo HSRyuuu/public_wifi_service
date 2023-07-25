@@ -1,9 +1,10 @@
 package com.example.zb_public_wifi_service;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
     private String message;
