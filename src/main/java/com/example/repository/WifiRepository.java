@@ -82,6 +82,13 @@ public class WifiRepository {
 
     private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
         try {
+            if (rs != null && !rs.isClosed()) {
+                rs.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
             if (pstmt != null && !pstmt.isClosed()) {
                 pstmt.close();
             }

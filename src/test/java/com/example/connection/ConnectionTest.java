@@ -1,6 +1,7 @@
 package com.example.connection;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -19,7 +20,7 @@ public class ConnectionTest {
             e.printStackTrace();
         }
         Connection con1 = DriverManager.getConnection(url, dbUserId, dbPassword);
-        System.out.println(con1);
-        System.out.println(con1.getClass());
+        Assertions.assertTrue(con1 != null);
+
     }
 }
