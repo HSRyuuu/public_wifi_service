@@ -23,6 +23,7 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.54'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

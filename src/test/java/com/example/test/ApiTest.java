@@ -11,7 +11,6 @@ import java.io.IOException;
 public class ApiTest {
     static ApiExplorer explorer = new ApiExplorer();
     static JsonConverter jsonConverter = new JsonConverter();
-    static WifiService wifiService = new WifiService();
 
     @Test
     void printTest() throws IOException {
@@ -20,8 +19,6 @@ public class ApiTest {
         jsonConverter.printObject(wifiInfos);
     }
 
-    @Test
-    void dbLoadTest() throws IOException {
-        wifiService.loadAllWifiOnDB();
-    }
+
+
 }

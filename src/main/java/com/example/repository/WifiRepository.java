@@ -1,9 +1,13 @@
 package com.example.repository;
 
 import com.example.connection.DBConnectionUtil;
+import com.example.domain.Wifi;
+import com.example.domain.WifiDTO;
 import com.example.json_utils.WifiInfo;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class WifiRepository {
@@ -18,7 +22,6 @@ public class WifiRepository {
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            setPstmt();
             for(WifiInfo wi : wifiInfos){
                 setPstmtForInsert(wi, pstmt); //pstmt 세팅
             }
@@ -28,6 +31,37 @@ public class WifiRepository {
         } finally {
             close(conn, pstmt, null);
         }
+    }
+
+    public List<WifiDTO> selectTop20WifiByDistance(double lnt, double lat){
+
+        List<WifiDTO> wifiList = new ArrayList<>();
+
+        String sql = "select * from wifi " +
+                " order by sqrt(power(lnt-?, 2) + power(lat-?,2)) " +
+                " limit 20; ";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setDouble(1, lnt);
+            pstmt.setDouble(2, lat);
+
+            rs = pstmt.executeQuery();
+            getResult20(wifiList, rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(conn, pstmt, null);
+        }
+
+        return wifiList;
     }
 
     public void deleteAll(){
@@ -45,10 +79,6 @@ public class WifiRepository {
         }finally{
             close(con,pstmt,null);
         }
-    }
-
-    private void setPstmt(){
-
     }
 
     private void setPstmtForInsert(WifiInfo wifiInfo, PreparedStatement pstmt) throws SQLException {
@@ -72,6 +102,28 @@ public class WifiRepository {
         pstmt.setString(16, wifiInfo.getWORK_DTTM());
 
         pstmt.addBatch();
+    }
+    private void getResult20(List<WifiDTO> wifiList, ResultSet rs) throws SQLException {
+        while(rs.next()){
+            WifiDTO wifiDTO = new WifiDTO();
+            wifiDTO.setManageNumber(rs.getString("manage_number"));
+            wifiDTO.setDistrict(rs.getString("district"));
+            wifiDTO.setName(rs.getString("name"));
+            wifiDTO.setAddr1(rs.getString("addr1"));
+            wifiDTO.setAddr2(rs.getString("addr2"));
+            wifiDTO.setInstallFloor(rs.getString("install_floor"));
+            wifiDTO.setInstallType(rs.getString("install_type"));
+            wifiDTO.setInstallCorp(rs.getString("install_corp"));
+            wifiDTO.setServiceType(rs.getString("service_type"));
+            wifiDTO.setNetworkType(rs.getString("network_type"));
+            wifiDTO.setInstallYear(rs.getString("install_year"));
+            wifiDTO.setInOrOutDoor(rs.getString("in_or_out_door"));
+            wifiDTO.setWifiAccessEnv(rs.getString("wifi_access_env"));
+            wifiDTO.setLnt(rs.getString("lnt"));
+            wifiDTO.setLat(rs.getString("lat"));
+            wifiDTO.setWorkDateTime(rs.getString("work_date_time"));
+            wifiList.add(wifiDTO);
+        }
     }
     private String getInsertSQL(){
         return " insert into wifi" +

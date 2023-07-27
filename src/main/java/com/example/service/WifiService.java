@@ -1,11 +1,14 @@
 package com.example.service;
 
 import com.example.api.ApiExplorer;
+import com.example.domain.Wifi;
+import com.example.domain.WifiDTO;
 import com.example.json_utils.JsonConverter;
 import com.example.json_utils.WifiInfo;
 import com.example.repository.WifiRepository;
 
 import java.io.IOException;
+import java.util.List;
 
 public class WifiService {
     private static ApiExplorer apiExplorer = new ApiExplorer();
@@ -14,9 +17,7 @@ public class WifiService {
 
     public void loadAllWifiOnDB() throws IOException {
         wifiRepository.deleteAll();
-
         int rowsAmount = apiExplorer.getRowsAmount();
-
         loadAllWifi(rowsAmount);
     }
     private void loadAllWifi(int rowsAmount) throws IOException {
@@ -28,5 +29,22 @@ public class WifiService {
             wifiRepository.loadAll(wifiInfos);
             System.out.println(cnt);
         }
+    }
+    public List<WifiDTO> getTop20Wifi(double myLnt, double myLat){
+        List<WifiDTO> wifiDTOList = wifiRepository.selectTop20WifiByDistance(myLnt, myLat);
+        for (WifiDTO wi : wifiDTOList){
+            wi.setDistance(calculateDistance(myLnt, myLat, wi));
+        }
+        return wifiDTOList;
+    }
+    private String calculateDistance(double myLnt, double myLat, WifiDTO wifiDTO){
+        double result = 0;
+        double lnt = Double.parseDouble(wifiDTO.getLnt());
+        double lat = Double.parseDouble(wifiDTO.getLat());
+
+        result = Math.sqrt( Math.pow(myLnt-lnt, 2) + Math.pow(myLat-lat, 2));
+
+
+        return String.format("%.4f",result);
     }
 }
