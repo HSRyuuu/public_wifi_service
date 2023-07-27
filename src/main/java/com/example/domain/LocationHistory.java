@@ -12,6 +12,6 @@ public class LocationHistory {
     private long id;
     private double lnt;//x좌표
     private double lat;//y좌표
-    private LocalDateTime searchDate;
+    private LocalDateTime searchDateTime;
 
 }
