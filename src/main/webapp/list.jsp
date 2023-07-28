@@ -1,6 +1,7 @@
 <%@ page import="com.example.service.WifiService" %>
 <%@ page import="com.example.entity.WifiDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.entity.LocationDTO" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -10,15 +11,14 @@
     <link rel="stylesheet" type="text/css" href="/css/table_main.css">
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Wifi List</title>
 
-    <script src="location.js"></script>
+    <script src="js/location.js"></script>
 
 </head>
 <body>
 <%
     WifiService wifiService = new WifiService();
-    List<WifiDTO> top20Wifi = wifiService.getTop20Wifi(37.1, 126.5);
 %>
 <h1>와이파이 정보</h1>
 
@@ -28,10 +28,30 @@
     <button class="button">Open API 와이파이 정보 가져오기</button>
 </div>
 <div>
-    LAT: <input type="text" id="latitudeInput" />  LNG: <input type="text" id="longitudeInput" />
+    LAT: <input type="text" id="latitudeInput" /> LNT: <input type="text" id="longitudeInput" />
     <button class="button" onclick="getLocation()">내 위치 불러오기</button>
-    <button class="button">근처 WIFI 정보 보기</button>
+
+    <form method="get" action="list.jsp">
+        <input type="hidden" id="latitudeHiddenInput" name="latitude" value="0" />
+        <input type="hidden" id="longitudeHiddenInput" name="longitude" value="0"/>
+        <button type="submit" class=" button">근처 WIFI 정보 보기</button>
+    </form>
+
 </div>
+<%
+    String latitude = "0";
+    String longitude = "0";
+    String lat = request.getParameter("latitude");
+    String lnt = request.getParameter("longitude");
+    if(lat != null){
+        latitude = lat;
+    }
+    if(lnt != null){
+        longitude = lnt;
+    }
+
+    List<WifiDTO> top20Wifi = wifiService.getTop20Wifi(new LocationDTO(longitude, latitude));
+%>
 
 <table>
     <thead>
@@ -50,8 +70,8 @@
         <th>설치년도</th>
         <th>실내외구분</th>
         <th>WIFI접속환경</th>
-        <th>X좌표</th>
-        <th>Y좌표</th>
+        <th>LAT(위도)</th>
+        <th>LNT(경도)</th>
         <th>작업일자</th>
     </tr>
     </thead>
@@ -78,8 +98,8 @@
         <td><%=wi.getInstallYear()%></td>
         <td><%=wi.getInOrOutDoor()%></td>
         <td><%=wi.getWifiAccessEnv()%></td>
-        <td><%=wi.getLnt()%></td>
         <td><%=wi.getLat()%></td>
+        <td><%=wi.getLnt()%></td>
         <td><%=wi.getWorkDateTime()%></td>
     </tr>
     <%

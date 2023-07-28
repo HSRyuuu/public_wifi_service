@@ -1,12 +1,15 @@
 package com.example.repository;
 
 import com.example.connection.DBConnectionUtil;
+import com.example.entity.LocationDTO;
+import com.example.entity.Wifi;
 import com.example.entity.WifiDTO;
 import com.example.json_utils.WifiInfo;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 public class WifiRepository {
@@ -32,8 +35,10 @@ public class WifiRepository {
         }
     }
 
-    public List<WifiDTO> selectTop20Wifi(double lnt, double lat){
+    public List<WifiDTO> selectTop20Wifi(LocationDTO loc){
 
+        double lnt = loc.getLnt();
+        double lat = loc.getLat();
         List<WifiDTO> wifiList = new ArrayList<>();
 
         String sql = "select * from wifi " +
@@ -57,10 +62,33 @@ public class WifiRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            close(conn, pstmt, null);
+            close(conn, pstmt, rs);
         }
 
         return wifiList;
+    }
+    public WifiDTO findByManageNumber(String key){
+        String sql = "select * from wifi " +
+                " where manage_number=? ";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, key);
+
+            rs = pstmt.executeQuery();
+
+            return getOneWifi(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(conn, pstmt, rs);
+        }
+        return new WifiDTO();
     }
 
     public void deleteAll(){
@@ -123,6 +151,30 @@ public class WifiRepository {
             wifiDTO.setWorkDateTime(rs.getString("work_date_time"));
             wifiList.add(wifiDTO);
         }
+    }
+    private WifiDTO getOneWifi(ResultSet rs) throws SQLException {
+        WifiDTO wifiDTO = new WifiDTO();
+        if(rs.next()){
+            wifiDTO.setManageNumber(rs.getString("manage_number"));
+            wifiDTO.setDistrict(rs.getString("district"));
+            wifiDTO.setName(rs.getString("name"));
+            wifiDTO.setAddr1(rs.getString("addr1"));
+            wifiDTO.setAddr2(rs.getString("addr2"));
+            wifiDTO.setInstallFloor(rs.getString("install_floor"));
+            wifiDTO.setInstallType(rs.getString("install_type"));
+            wifiDTO.setInstallCorp(rs.getString("install_corp"));
+            wifiDTO.setServiceType(rs.getString("service_type"));
+            wifiDTO.setNetworkType(rs.getString("network_type"));
+            wifiDTO.setInstallYear(rs.getString("install_year"));
+            wifiDTO.setInOrOutDoor(rs.getString("in_or_out_door"));
+            wifiDTO.setWifiAccessEnv(rs.getString("wifi_access_env"));
+            wifiDTO.setLnt(rs.getString("lnt"));
+            wifiDTO.setLat(rs.getString("lat"));
+            wifiDTO.setWorkDateTime(rs.getString("work_date_time"));
+        }else{
+            throw new NoSuchElementException("WIFI not found");
+        }
+        return wifiDTO;
     }
     private String getInsertSQL(){
         return " insert into wifi" +

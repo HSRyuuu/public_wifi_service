@@ -15,6 +15,10 @@ public class WifiService {
     private static WifiRepository wifiRepository = new WifiRepository();
     private static JsonConverter jsonConverter = new JsonConverter();
 
+
+    /**
+     * DB에 모든 와이파이 데이터 저장
+     */
     public void loadAllWifiOnDB() throws IOException {
         wifiRepository.deleteAll();
         int rowsAmount = apiExplorer.getRowsAmount();
@@ -31,24 +35,28 @@ public class WifiService {
         }
     }
 
-
-
-    public List<WifiDTO> getTop20Wifi(double myLnt, double myLat){
-        List<WifiDTO> wifiDTOList = wifiRepository.selectTop20Wifi(myLnt, myLat);
+    /**
+     * 입력받은 위도, 경도 값으로 가장 가까운 20개의 데이터를 불러와서 반환
+     * @return List<WifiDTO> 가장 가까운 20개의 리스트
+     */
+    public List<WifiDTO> getTop20Wifi(LocationDTO loc){
+        List<WifiDTO> wifiDTOList = wifiRepository.selectTop20Wifi(loc);
         for (WifiDTO wi : wifiDTOList){
-            wi.setDistance(calculateDistance(myLnt, myLat, new LocationDTO(wi.getLnt(), wi.getLat())));
+            wi.setDistance(calculateDistance(loc, new LocationDTO(wi.getLnt(), wi.getLat())));
         }
         return wifiDTOList;
     }
 
     //TODO : 거리계산 로직 수정
-    private String calculateDistance(double myLnt, double myLat, LocationDTO locationDTO){
-        double result = 0;
-        double lnt = Double.parseDouble(locationDTO.getLnt());
-        double lat = Double.parseDouble(locationDTO.getLat());
+    private String calculateDistance(LocationDTO loc1, LocationDTO loc2){
+        return String.format("%.4f",
+                Math.sqrt( Math.pow(loc1.getLnt()-loc2.getLnt(), 2) + Math.pow(loc1.getLat()-loc2.getLat(), 2))
+                );
+    }
 
-        result = Math.sqrt( Math.pow(myLnt-lnt, 2) + Math.pow(myLat-lat, 2));
-
-        return String.format("%.4f",result);
+    public WifiDTO getWifiDetail(String key, LocationDTO loc){
+        WifiDTO wifiDTO = wifiRepository.findByManageNumber(key);
+        wifiDTO.setDistance(calculateDistance(new LocationDTO(wifiDTO.getLnt(), wifiDTO.getLat()), loc));
+        return wifiDTO;
     }
 }
