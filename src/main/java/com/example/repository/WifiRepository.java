@@ -1,8 +1,7 @@
 package com.example.repository;
 
 import com.example.connection.DBConnectionUtil;
-import com.example.domain.Wifi;
-import com.example.domain.WifiDTO;
+import com.example.entity.WifiDTO;
 import com.example.json_utils.WifiInfo;
 
 import java.sql.*;
@@ -33,7 +32,7 @@ public class WifiRepository {
         }
     }
 
-    public List<WifiDTO> selectTop20WifiByDistance(double lnt, double lat){
+    public List<WifiDTO> selectTop20Wifi(double lnt, double lat){
 
         List<WifiDTO> wifiList = new ArrayList<>();
 

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class WifiInfo {
      private String X_SWIFI_MGR_NO;//관리 번호

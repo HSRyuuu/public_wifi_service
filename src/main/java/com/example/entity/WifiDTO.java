@@ -1,15 +1,14 @@
-package com.example.domain;
+package com.example.entity;
 
 
+import lombok.Data;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
-public class Wifi {
+@Data
+public class WifiDTO {
+    private String distance; // 거리
     private String manageNumber;//관리 번호
     private String district; //자치구
     private String name;//와이파이명
@@ -26,5 +25,8 @@ public class Wifi {
     private String lnt;//x좌표 (경도)
     private String lat;//y좌표 (위도)
     private String workDateTime;//작업일자
+
+    public WifiDTO() {
+    }
 
 }

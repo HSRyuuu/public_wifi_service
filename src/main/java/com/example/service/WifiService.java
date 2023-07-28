@@ -1,8 +1,8 @@
 package com.example.service;
 
 import com.example.api.ApiExplorer;
-import com.example.domain.Wifi;
-import com.example.domain.WifiDTO;
+import com.example.entity.LocationDTO;
+import com.example.entity.WifiDTO;
 import com.example.json_utils.JsonConverter;
 import com.example.json_utils.WifiInfo;
 import com.example.repository.WifiRepository;
@@ -30,20 +30,24 @@ public class WifiService {
             System.out.println(cnt);
         }
     }
+
+
+
     public List<WifiDTO> getTop20Wifi(double myLnt, double myLat){
-        List<WifiDTO> wifiDTOList = wifiRepository.selectTop20WifiByDistance(myLnt, myLat);
+        List<WifiDTO> wifiDTOList = wifiRepository.selectTop20Wifi(myLnt, myLat);
         for (WifiDTO wi : wifiDTOList){
-            wi.setDistance(calculateDistance(myLnt, myLat, wi));
+            wi.setDistance(calculateDistance(myLnt, myLat, new LocationDTO(wi.getLnt(), wi.getLat())));
         }
         return wifiDTOList;
     }
-    private String calculateDistance(double myLnt, double myLat, WifiDTO wifiDTO){
+
+    //TODO : 거리계산 로직 수정
+    private String calculateDistance(double myLnt, double myLat, LocationDTO locationDTO){
         double result = 0;
-        double lnt = Double.parseDouble(wifiDTO.getLnt());
-        double lat = Double.parseDouble(wifiDTO.getLat());
+        double lnt = Double.parseDouble(locationDTO.getLnt());
+        double lat = Double.parseDouble(locationDTO.getLat());
 
         result = Math.sqrt( Math.pow(myLnt-lnt, 2) + Math.pow(myLat-lat, 2));
-
 
         return String.format("%.4f",result);
     }

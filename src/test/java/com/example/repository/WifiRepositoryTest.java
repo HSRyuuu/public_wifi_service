@@ -1,14 +1,11 @@
 package com.example.repository;
 
-import com.example.domain.Wifi;
-import com.example.domain.WifiDTO;
+import com.example.entity.WifiDTO;
 import com.example.service.WifiService;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class WifiRepositoryTest {
 

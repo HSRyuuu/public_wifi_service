@@ -8,6 +8,6 @@
 <h1><%= "xxxHello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="list.jsp">go to list</a>
 </body>
 </html>
