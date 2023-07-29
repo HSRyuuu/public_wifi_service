@@ -1,7 +1,7 @@
 <%@ page import="com.example.service.WifiService" %>
-<%@ page import="com.example.entity.WifiDTO" %>
+<%@ page import="com.example.dto.WifiDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.entity.LocationDTO" %>
+<%@ page import="com.example.dto.LocationDTO" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -11,9 +11,10 @@
     <link rel="stylesheet" type="text/css" href="/css/table_main.css">
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
     <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
     <title>Wifi List</title>
 
-    <script src="../js/location.js"></script>
+    <script src="js/location.js"></script>
 
 </head>
 <body>
@@ -25,25 +26,41 @@
 
 <div class="button-container">
     <button class="button"
-            onclick="location.href='list.jsp'"
+            onclick="location.href='list.jsp"
     >홈</button>
-    <button class="button">위치 히스토리 목록</button>
-    <button class="button">Open API 와이파이 정보 가져오기</button>
+
+    <button class="button"
+            onclick="location.href='history.jsp'"
+    >위치 히스토리 목록</button>
+
+    <button class="button"
+            onclick="location.href='load-wifi.jsp'"
+    >Open API 와이파이 정보 가져오기</button>
+    <button class="button">북마크 보기</button>
+    <button class="button">북마크 그룹 관리</button>
+
+
 </div>
 <%
-    List<WifiDTO> top20Wifi = wifiService.getTop20Wifi(new LocationDTO(37.565836, 126.978432));
-    String lat = "";
-    String lnt = "";
-    if("POST".equals(request.getMethod())){
-        lat = request.getParameter("latitudeInput");
-        lnt = request.getParameter("longitudeInput");
-        top20Wifi = wifiService.getTop20Wifi(new LocationDTO(lat, lnt));
+    String lat = request.getParameter("latitude");
+    String lnt = request.getParameter("longitude");
+    if(lat == null){
+        lat = "0.0";
     }
+    if(lnt == null){
+        lnt = "0.0";
+    }
+
+    List<WifiDTO> top20Wifi = wifiService.getTop20Wifi(new LocationDTO(lat, lnt));
 %>
 <div>
-    <form method="post" action="list.jsp">
-        LAT: <input type="text" id="latitudeInput" name="latitudeInput"/>
-        LNT: <input type="text" id="longitudeInput" name="longitudeInput"/>
+    <form method="get" action="list.jsp">
+        LAT: <input type="text" id="latitude" name="latitude" value="<%=lat%>">
+        <label for="latitude"></label>
+
+        LNT: <input type="text" id="longitude" name="longitude" value="<%=lnt%>"/>
+        <label for="longitude"></label>
+
         <button type="button" class="button" onclick="getLocation()">내 위치 불러오기</button>
         <button type="submit" class="button">근처 WIFI 정보 보기</button>
     </form>
@@ -81,7 +98,7 @@
         <td><%=wi.getManageNumber()%></td>
         <td><%=wi.getDistrict()%></td>
         <td>
-            <a href="../detail.jsp?key=<%=wi.getManageNumber()%>&lat=<%=lat%>&lnt=<%=lnt%>">
+            <a href="detail.jsp?key=<%=wi.getManageNumber()%>&lat=<%=lat%>&lnt=<%=lnt%>">
                 <%=wi.getName()%>
             </a>
         </td>

@@ -11,8 +11,6 @@
   <link rel="stylesheet" type="text/css" href="/css/buttons.css">
   <title>Title</title>
 
-  <script src="js/location.js"></script>
-
 </head>
 <body>
 <%
@@ -24,7 +22,7 @@
 </div>
 <div style="display: flex; justify-content: center; align-items: center">
   <button class="button"
-          onclick="location.href='list.jsp'"
+          onclick="location.href='index.jsp'"
   >Home</button>
 </div>
 

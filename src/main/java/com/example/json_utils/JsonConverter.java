@@ -1,5 +1,6 @@
 package com.example.json_utils;
 
+import com.example.dto.WifiInfo;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

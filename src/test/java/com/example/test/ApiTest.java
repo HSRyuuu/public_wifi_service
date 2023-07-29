@@ -2,8 +2,7 @@ package com.example.test;
 
 import com.example.api.ApiExplorer;
 import com.example.json_utils.JsonConverter;
-import com.example.json_utils.WifiInfo;
-import com.example.service.WifiService;
+import com.example.dto.WifiInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

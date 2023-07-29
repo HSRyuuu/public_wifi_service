@@ -1,7 +1,7 @@
 package com.example.repository;
 
-import com.example.entity.LocationDTO;
-import com.example.entity.WifiDTO;
+import com.example.dto.LocationDTO;
+import com.example.dto.WifiDTO;
 import com.example.service.WifiService;
 import org.junit.jupiter.api.Test;
 

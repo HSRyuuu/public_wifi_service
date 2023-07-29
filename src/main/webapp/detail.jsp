@@ -1,6 +1,6 @@
 <%@ page import="com.example.service.WifiService" %>
-<%@ page import="com.example.entity.WifiDTO" %>
-<%@ page import="com.example.entity.LocationDTO" %>
+<%@ page import="com.example.dto.WifiDTO" %>
+<%@ page import="com.example.dto.LocationDTO" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -31,7 +31,7 @@
 
 <div class="button-container">
     <button class="button"
-            onclick="location.href='/'"
+            onclick="location.href='list.jsp'"
     >홈</button>
     <button class="button">위치 히스토리 목록</button>
     <button class="button">Open API 와이파이 정보 가져오기</button>

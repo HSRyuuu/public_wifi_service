@@ -1,10 +1,9 @@
 package com.example.repository;
 
 import com.example.connection.DBConnectionUtil;
-import com.example.entity.LocationDTO;
-import com.example.entity.Wifi;
-import com.example.entity.WifiDTO;
-import com.example.json_utils.WifiInfo;
+import com.example.dto.LocationDTO;
+import com.example.dto.WifiDTO;
+import com.example.dto.WifiInfo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -184,27 +183,7 @@ public class WifiRepository {
     }
 
     private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
-        try {
-            if (rs != null && !rs.isClosed()) {
-                rs.close();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            if (pstmt != null && !pstmt.isClosed()) {
-                pstmt.close();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+       DBConnectionUtil.close(conn, pstmt, rs);
     }
     private Connection getConnection() {
         return DBConnectionUtil.getConnection();
