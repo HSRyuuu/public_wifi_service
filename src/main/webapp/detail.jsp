@@ -8,6 +8,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
     <title>Wifi Detail</title>
     <link rel="stylesheet" type="text/css" href="/css/detail.css">
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
@@ -18,21 +19,25 @@
 
 </head>
 <body>
+<h1>와이파이 상세</h1>
 <%
     WifiService wifiService = new WifiService();
     String key = request.getParameter("key");
-
-    WifiDTO wi = wifiService.getWifiDetail(key, new LocationDTO(37.1, 126.5));
+    String lat = request.getParameter("lat");
+    String lnt = request.getParameter("lnt");
+    WifiDTO wi = wifiService.getWifiDetail(key, new LocationDTO(lat, lnt));
 
 %>
 
 <div class="button-container">
-    <button class="button">홈</button>
+    <button class="button"
+            onclick="location.href='/'"
+    >홈</button>
     <button class="button">위치 히스토리 목록</button>
     <button class="button">Open API 와이파이 정보 가져오기</button>
 </div>
 
-<h1>와이파이 상세</h1>
+
 <table>
     <colgroup>
         <col style="width: 20%"/>
@@ -100,7 +105,7 @@
         <td><%=wi.getLat()%></td>
     </tr>
     <tr>
-        <th>LNT(경도</th>
+        <th>LNT(경도)</th>
         <td><%=wi.getLnt()%></td>
     </tr>
     <tr>

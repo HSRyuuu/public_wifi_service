@@ -16,8 +16,9 @@ class WifiRepositoryTest {
 
     @Test
     void loadAll() throws IOException {
-        wifiService.loadAllWifiOnDB();
+        int rows = wifiService.loadAllWifiOnDB();
         System.out.println("=======");
+        System.out.println("rows = " + rows);
         System.out.println("DB 확인 해보기");
         System.out.println("=======");
     }

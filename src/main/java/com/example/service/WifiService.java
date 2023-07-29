@@ -19,10 +19,15 @@ public class WifiService {
     /**
      * DB에 모든 와이파이 데이터 저장
      */
-    public void loadAllWifiOnDB() throws IOException {
+    public int loadAllWifiOnDB() throws IOException {
         wifiRepository.deleteAll();
         int rowsAmount = apiExplorer.getRowsAmount();
         loadAllWifi(rowsAmount);
+        return rowsAmount;
+    }
+    public int getDataAmount() throws IOException {
+        int rowsAmount = apiExplorer.getRowsAmount();
+        return rowsAmount;
     }
     private void loadAllWifi(int rowsAmount) throws IOException {
         int cnt = 0;
@@ -42,21 +47,40 @@ public class WifiService {
     public List<WifiDTO> getTop20Wifi(LocationDTO loc){
         List<WifiDTO> wifiDTOList = wifiRepository.selectTop20Wifi(loc);
         for (WifiDTO wi : wifiDTOList){
-            wi.setDistance(calculateDistance(loc, new LocationDTO(wi.getLnt(), wi.getLat())));
+            wi.setDistance(calculateDistance(loc, new LocationDTO(wi.getLat(), wi.getLnt())));
         }
         return wifiDTOList;
     }
 
-    //TODO : 거리계산 로직 수정
-    private String calculateDistance(LocationDTO loc1, LocationDTO loc2){
-        return String.format("%.4f",
-                Math.sqrt( Math.pow(loc1.getLnt()-loc2.getLnt(), 2) + Math.pow(loc1.getLat()-loc2.getLat(), 2))
-                );
+    /**
+     * Haversine 공식을 이용해 위도경도 값으로 거리(km) 계산
+     */
+    public String calculateDistance(LocationDTO loc1, LocationDTO loc2){
+        double RADIUS = 6371.0; // 지구의 반지름 (단위: km)
+        double radLat1 = Math.toRadians(loc1.getLat());
+        double radLon1 = Math.toRadians(loc1.getLnt());
+        double radLat2 = Math.toRadians(loc2.getLat());
+        double radLon2 = Math.toRadians(loc2.getLnt());
+
+        // 위도와 경도의 차이 계산
+        double dLat = radLat2 - radLat1;
+        double dLon = radLon2 - radLon1;
+
+        // Haversine 공식 적용
+        double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(dLon / 2), 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        // 두 지점 간의 거리 계산
+        double distance = RADIUS * c;
+
+        return String.format("%.4f", distance);
     }
 
     public WifiDTO getWifiDetail(String key, LocationDTO loc){
         WifiDTO wifiDTO = wifiRepository.findByManageNumber(key);
-        wifiDTO.setDistance(calculateDistance(new LocationDTO(wifiDTO.getLnt(), wifiDTO.getLat()), loc));
+        wifiDTO.setDistance(calculateDistance(new LocationDTO(wifiDTO.getLat(), wifiDTO.getLnt()), loc));
         return wifiDTO;
     }
+
+
 }

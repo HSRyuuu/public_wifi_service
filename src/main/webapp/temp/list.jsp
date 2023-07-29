@@ -13,45 +13,42 @@
     <meta charset="UTF-8">
     <title>Wifi List</title>
 
-    <script src="js/location.js"></script>
+    <script src="../js/location.js"></script>
 
 </head>
 <body>
+<h1>와이파이 정보</h1>
 <%
     WifiService wifiService = new WifiService();
 %>
-<h1>와이파이 정보</h1>
+
 
 <div class="button-container">
-    <button class="button">홈</button>
+    <button class="button"
+            onclick="location.href='list.jsp'"
+    >홈</button>
     <button class="button">위치 히스토리 목록</button>
     <button class="button">Open API 와이파이 정보 가져오기</button>
 </div>
-<div>
-    LAT: <input type="text" id="latitudeInput" /> LNT: <input type="text" id="longitudeInput" />
-    <button class="button" onclick="getLocation()">내 위치 불러오기</button>
-
-    <form method="get" action="list.jsp">
-        <input type="hidden" id="latitudeHiddenInput" name="latitude" value="0" />
-        <input type="hidden" id="longitudeHiddenInput" name="longitude" value="0"/>
-        <button type="submit" class=" button">근처 WIFI 정보 보기</button>
-    </form>
-
-</div>
 <%
-    String latitude = "0";
-    String longitude = "0";
-    String lat = request.getParameter("latitude");
-    String lnt = request.getParameter("longitude");
-    if(lat != null){
-        latitude = lat;
+    List<WifiDTO> top20Wifi = wifiService.getTop20Wifi(new LocationDTO(37.565836, 126.978432));
+    String lat = "";
+    String lnt = "";
+    if("POST".equals(request.getMethod())){
+        lat = request.getParameter("latitudeInput");
+        lnt = request.getParameter("longitudeInput");
+        top20Wifi = wifiService.getTop20Wifi(new LocationDTO(lat, lnt));
     }
-    if(lnt != null){
-        longitude = lnt;
-    }
-
-    List<WifiDTO> top20Wifi = wifiService.getTop20Wifi(new LocationDTO(longitude, latitude));
 %>
+<div>
+    <form method="post" action="list.jsp">
+        LAT: <input type="text" id="latitudeInput" name="latitudeInput"/>
+        LNT: <input type="text" id="longitudeInput" name="longitudeInput"/>
+        <button type="button" class="button" onclick="getLocation()">내 위치 불러오기</button>
+        <button type="submit" class="button">근처 WIFI 정보 보기</button>
+    </form>
+</div>
+
 
 <table>
     <thead>
@@ -84,7 +81,7 @@
         <td><%=wi.getManageNumber()%></td>
         <td><%=wi.getDistrict()%></td>
         <td>
-            <a href="detail.jsp?key=<%=wi.getManageNumber()%>">
+            <a href="../detail.jsp?key=<%=wi.getManageNumber()%>&lat=<%=lat%>&lnt=<%=lnt%>">
                 <%=wi.getName()%>
             </a>
         </td>

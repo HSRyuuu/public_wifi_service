@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class LocationHistory {
     private long id;
-    private double lnt;//x좌표
-    private double lat;//y좌표
+    private double lat;//위도
+    private double lnt;//경도
     private LocalDateTime searchDateTime;
 
 }

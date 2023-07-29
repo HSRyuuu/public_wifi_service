@@ -13,14 +13,10 @@ import static com.example.connection.ConnectionConst.*;
 
 public class ConnectionTest {
     @Test
-    void driverManager() throws SQLException {
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        Connection con1 = DriverManager.getConnection(url, dbUserId, dbPassword);
-        Assertions.assertTrue(con1 != null);
-
+    void driverManager() {
+        Connection con = DBConnectionUtil.getConnection();
+        System.out.println(con.getClass());
+        Assertions.assertTrue(con != null);
     }
+
 }

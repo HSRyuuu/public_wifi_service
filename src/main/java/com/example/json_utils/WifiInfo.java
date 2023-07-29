@@ -21,8 +21,8 @@ public class WifiInfo {
      private String X_SWIFI_CNSTC_YEAR;//설치년도
      private String X_SWIFI_INOUT_DOOR;//실내외구분
      private String X_SWIFI_REMARS3;//wifi접속환경
-     private String LNT;
-     private String LAT;
+     private String LAT;//작은값 (위도)
+     private String LNT; //큰 값(경도)
      private String WORK_DTTM;//작업일자
 
      @Override

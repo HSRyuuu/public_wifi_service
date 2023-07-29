@@ -36,13 +36,13 @@ public class WifiRepository {
     }
 
     public List<WifiDTO> selectTop20Wifi(LocationDTO loc){
-
-        double lnt = loc.getLnt();
         double lat = loc.getLat();
+        double lnt = loc.getLnt();
+
         List<WifiDTO> wifiList = new ArrayList<>();
 
         String sql = "select * from wifi " +
-                " order by sqrt(power(lnt-?, 2) + power(lat-?,2)) " +
+                " order by sqrt( power(lat-?,2) + power(lnt-?, 2)) " +
                 " limit 20; ";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -53,8 +53,8 @@ public class WifiRepository {
 
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setDouble(1, lnt);
-            pstmt.setDouble(2, lat);
+            pstmt.setDouble(1, lat);
+            pstmt.setDouble(2, lnt);
 
             rs = pstmt.executeQuery();
             getResult20(wifiList, rs);
@@ -146,8 +146,8 @@ public class WifiRepository {
             wifiDTO.setInstallYear(rs.getString("install_year"));
             wifiDTO.setInOrOutDoor(rs.getString("in_or_out_door"));
             wifiDTO.setWifiAccessEnv(rs.getString("wifi_access_env"));
-            wifiDTO.setLnt(rs.getString("lnt"));
             wifiDTO.setLat(rs.getString("lat"));
+            wifiDTO.setLnt(rs.getString("lnt"));
             wifiDTO.setWorkDateTime(rs.getString("work_date_time"));
             wifiList.add(wifiDTO);
         }
@@ -178,7 +178,7 @@ public class WifiRepository {
     }
     private String getInsertSQL(){
         return " insert into wifi" +
-                " (manage_number, district, name, addr1, addr2, install_floor, install_type, install_corp, service_type, network_type, install_year, in_or_out_door, wifi_access_env ,lnt ,lat ,work_date_time )" +
+                " (manage_number, district, name, addr1, addr2, install_floor, install_type, install_corp, service_type, network_type, install_year, in_or_out_door, wifi_access_env ,lat ,lnt ,work_date_time )" +
                 " values" +
                 " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
