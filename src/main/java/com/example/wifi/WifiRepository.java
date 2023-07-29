@@ -1,4 +1,4 @@
-package com.example.repository;
+package com.example.wifi;
 
 import com.example.connection.DBConnectionUtil;
 import com.example.dto.LocationDTO;

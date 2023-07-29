@@ -2,7 +2,7 @@ package com.example.repository;
 
 import com.example.dto.LocationDTO;
 import com.example.dto.WifiDTO;
-import com.example.service.WifiService;
+import com.example.wifi.WifiService;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

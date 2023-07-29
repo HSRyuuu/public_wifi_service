@@ -1,4 +1,4 @@
-<%@ page import="com.example.service.WifiService" %>
+<%@ page import="com.example.wifi.WifiService" %>
 <%@ page import="com.example.dto.WifiDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.dto.LocationDTO" %>
@@ -28,7 +28,7 @@
 <div class="button-container">
     <button class="button"
             onclick="location.href='index.jsp'"
-    >홈</button>
+    >Home</button>
 
     <button class="button"
             onclick="location.href='history.jsp'"
@@ -71,8 +71,8 @@
         <th>설치년도</th>
         <th>실내외구분</th>
         <th>WIFI접속환경</th>
-        <th>LAT(위도)</th>
-        <th>LNT(경도)</th>
+        <th>위도(LAT)</th>
+        <th>경도(LNT)</th>
         <th>작업일자</th>
     </tr>
     </thead>

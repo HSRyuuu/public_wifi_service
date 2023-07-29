@@ -1,4 +1,4 @@
-<%@ page import="com.example.service.WifiService" %>
+<%@ page import="com.example.wifi.WifiService" %>
 <%@ page import="com.example.dto.WifiDTO" %>
 <%@ page import="com.example.dto.LocationDTO" %>
 
@@ -20,6 +20,16 @@
 </head>
 <body>
 <h1>와이파이 상세</h1>
+<div class="button-container">
+    <button class="button"
+            onclick="location.href='list.jsp'"
+    >Home</button>
+    <button class="button">북마크 보기</button>
+    <button class="button">북마크 그룹 관리</button>
+</div>
+<div>
+
+</div>
 <%
     WifiService wifiService = new WifiService();
     String key = request.getParameter("key");
@@ -29,13 +39,7 @@
 
 %>
 
-<div class="button-container">
-    <button class="button"
-            onclick="location.href='list.jsp'"
-    >홈</button>
-    <button class="button">위치 히스토리 목록</button>
-    <button class="button">Open API 와이파이 정보 가져오기</button>
-</div>
+
 
 
 <table>

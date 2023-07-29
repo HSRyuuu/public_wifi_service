@@ -1,4 +1,4 @@
-<%@ page import="com.example.service.WifiService" %>
+<%@ page import="com.example.wifi.WifiService" %>
 <%@ page import="com.example.dto.WifiDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.dto.LocationDTO" %>
@@ -26,8 +26,8 @@
 
 <div class="button-container">
     <button class="button"
-            onclick="location.href='list.jsp"
-    >홈</button>
+            onclick="location.href='list.jsp'"
+    >Home</button>
 
     <button class="button"
             onclick="location.href='history.jsp'"
@@ -36,10 +36,13 @@
     <button class="button"
             onclick="location.href='load-wifi.jsp'"
     >Open API 와이파이 정보 가져오기</button>
-    <button class="button">북마크 보기</button>
-    <button class="button">북마크 그룹 관리</button>
 
-
+    <button class="button"
+            onclick="location.href='bookmark-list.jsp'"
+    >북마크 보기</button>
+    <button class="button"
+            onclick="location.href='bookmark-group.jsp'"
+    >북마크 그룹 관리</button>
 </div>
 <%
     String lat = request.getParameter("latitude");
@@ -54,7 +57,7 @@
     List<WifiDTO> top20Wifi = wifiService.getTop20Wifi(new LocationDTO(lat, lnt));
 %>
 <div>
-    <form method="get" action="list.jsp">
+    <form method="get" action="save-history.jsp">
         LAT: <input type="text" id="latitude" name="latitude" value="<%=lat%>">
         <label for="latitude"></label>
 
@@ -84,8 +87,8 @@
         <th>설치년도</th>
         <th>실내외구분</th>
         <th>WIFI접속환경</th>
-        <th>LAT(위도)</th>
-        <th>LNT(경도)</th>
+        <th>위도(LAT)</th>
+        <th>경도(LNT)</th>
         <th>작업일자</th>
     </tr>
     </thead>

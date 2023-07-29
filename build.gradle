@@ -24,7 +24,8 @@ tasks.withType(JavaCompile) {
 dependencies {
     implementation 'org.projectlombok:lombok:1.18.22'
     compileOnly('javax.servlet:javax.servlet-api:4.0.1')
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.54'
+
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:8.5.91'
 
     implementation 'org.xerial:sqlite-jdbc:3.36.0' // SQLite JDBC 드라이버
 
@@ -46,7 +47,7 @@ dependencies {
     //JUnit
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    testImplementation("org.assertj:assertj-core:3.22.0")
+    testImplementation('org.assertj:assertj-core:3.24.2')
 
 }
 

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dto.LocationDTO;
+import com.example.wifi.WifiService;
 
 
 class WifiServiceTest {

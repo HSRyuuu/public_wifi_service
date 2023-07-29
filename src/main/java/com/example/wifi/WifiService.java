@@ -1,14 +1,12 @@
-package com.example.service;
+package com.example.wifi;
 
 import com.example.api.ApiExplorer;
 import com.example.dto.LocationDTO;
 import com.example.dto.WifiDTO;
 import com.example.json_utils.JsonConverter;
 import com.example.dto.WifiInfo;
-import com.example.repository.WifiRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WifiService {
