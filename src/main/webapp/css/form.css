@@ -1,15 +1,17 @@
 table {
-    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px;
 }
+
 th, td{
     text-align: center;
     vertical-align: middle;
     border: 1px outset  #ddd;
-    padding: 6px;
+    padding: 5px 20px;
 }
 th{
     background-color: mediumseagreen;
-    padding: 10px;
     color: white;
 }
 tr:nth-child(even){
@@ -17,4 +19,11 @@ tr:nth-child(even){
 }
 tr:nth-child(odd){
     background-color: white;
+}
+input{
+    width: 150px;
+    margin: 10px;
+    margin-right: 30px;
+    margin-left: 30px;
+
 }

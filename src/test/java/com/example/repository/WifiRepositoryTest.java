@@ -27,7 +27,7 @@ class WifiRepositoryTest {
     void getTop20Wifi(){
         LocationDTO loc = new LocationDTO(37.147590, 127.149493);
 
-        List<WifiDTO> top20Wifi = wifiService.getTop20Wifi(loc);
+        List<WifiDTO> top20Wifi = wifiService.findTop20Wifi(loc);
 
         assertThat(top20Wifi.size()).isEqualTo(20);
 
@@ -43,7 +43,7 @@ class WifiRepositoryTest {
     void findByManageNumberTest(){
         String key = "---EP000001";
 
-        WifiDTO wifiDTO = wifiService.getWifiDetail(key, new LocationDTO(37.147590, 127.149493));
+        WifiDTO wifiDTO = wifiService.findWifiDetail(key, new LocationDTO(37.147590, 127.149493));
 
         assertThat(wifiDTO.getManageNumber()).isEqualTo(key);
 

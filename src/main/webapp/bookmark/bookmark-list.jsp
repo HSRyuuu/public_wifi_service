@@ -14,19 +14,19 @@
 <h1>북마크 목록</h1>
 <div class="button-container">
     <button class="button"
-            onclick="location.href='list.jsp'"
+            onclick="location.href='../list.jsp'"
     >Home
     </button>
 
     <button class="button"
-            onclick="location.href='history.jsp'"
+            onclick="location.href='../history/history.jsp'"
     >위치 히스토리 목록
     </button>
 
     <button class="button"
-            onclick="location.href='load-wifi.jsp'"
-    >Open API 와이파이 정보 가져오기
-    </button>
+            style="background-color: #f5c2c7"
+            onclick="location.href='../wifi/load-wifi.jsp'"
+    >Open API 와이파이 정보 가져오기</button>
 
     <button class="button"
             onclick="location.href='bookmark-list.jsp'"
@@ -34,7 +34,7 @@
     </button>
 
     <button class="button"
-            onclick="location.href='bookmark-group.jsp'"
+            onclick="location.href='../bookmark-group/bookmark-group.jsp'"
     >북마크 그룹 관리
     </button>
 </div>

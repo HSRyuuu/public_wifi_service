@@ -22,8 +22,8 @@ public class Wifi {
     private String installYear;//설치년도
     private String inOrOutDoor;//실내외구분
     private String wifiAccessEnv;//wifi접속환경
-    private String lnt;//x좌표 (경도)
     private String lat;//y좌표 (위도)
+    private String lnt;//x좌표 (경도)
     private String workDateTime;//작업일자
 
 }

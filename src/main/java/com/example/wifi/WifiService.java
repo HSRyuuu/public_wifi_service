@@ -24,10 +24,6 @@ public class WifiService {
         loadAllWifi(rowsAmount);
         return rowsAmount;
     }
-    public int getDataAmount() throws IOException {
-        int rowsAmount = apiExplorer.getRowsAmount();
-        return rowsAmount;
-    }
     private void loadAllWifi(int rowsAmount) throws IOException {
         int cnt = 0;
         for(int i = 1; i <= rowsAmount; i += 1000){
@@ -43,7 +39,7 @@ public class WifiService {
      * 입력받은 위도, 경도 값으로 가장 가까운 20개의 데이터를 불러와서 반환
      * @return List<WifiDTO> 가장 가까운 20개의 리스트
      */
-    public List<WifiDTO> getTop20Wifi(LocationDTO loc){
+    public List<WifiDTO> findTop20Wifi(LocationDTO loc){
         List<WifiDTO> wifiDTOList = wifiRepository.selectTop20Wifi(loc);
         for (WifiDTO wi : wifiDTOList){
             wi.setDistance(calculateDistance(loc, new LocationDTO(wi.getLat(), wi.getLnt())));
@@ -75,7 +71,7 @@ public class WifiService {
         return String.format("%.4f", distance);
     }
 
-    public WifiDTO getWifiDetail(String key, LocationDTO loc){
+    public WifiDTO findWifiDetail(String key, LocationDTO loc){
         WifiDTO wifiDTO = wifiRepository.findByManageNumber(key);
         wifiDTO.setDistance(calculateDistance(new LocationDTO(wifiDTO.getLat(), wifiDTO.getLnt()), loc));
         return wifiDTO;

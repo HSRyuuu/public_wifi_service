@@ -15,7 +15,7 @@
     String lat = request.getParameter("latitude");
     String lnt = request.getParameter("longitude");
     historyService.saveHistory(new LocationDTO(lat, lnt));
-    response.sendRedirect("list.jsp?latitude="+lat+"&longitude="+lnt);
+    response.sendRedirect("../list.jsp?latitude="+lat+"&longitude="+lnt);
 %>
 
 </body>

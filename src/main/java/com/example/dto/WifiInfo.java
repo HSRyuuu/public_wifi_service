@@ -1,14 +1,9 @@
 package com.example.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter @Setter
-@AllArgsConstructor
-@ToString
+@Data
 public class WifiInfo {
      private String X_SWIFI_MGR_NO;//관리 번호
      private String X_SWIFI_WRDOFC; //자치구

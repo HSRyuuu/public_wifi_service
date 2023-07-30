@@ -15,17 +15,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <script src="js/location.js"></script>
+    <script src="../js/location.js"></script>
 
 </head>
 <body>
 <h1>와이파이 상세</h1>
 <div class="button-container">
     <button class="button"
-            onclick="location.href='list.jsp'"
+            onclick="location.href='../list.jsp'"
     >Home</button>
-    <button class="button">북마크 보기</button>
-    <button class="button">북마크 그룹 관리</button>
+    <button class="button"
+            onclick="location.href='../bookmark/bookmark-list.jsp'"
+    >북마크 보기</button>
+
+    <button class="button"
+            onclick="location.href='../bookmark-group/bookmark-group.jsp'"
+    >북마크 그룹 관리</button>
 </div>
 <div>
 
@@ -35,7 +40,7 @@
     String key = request.getParameter("key");
     String lat = request.getParameter("lat");
     String lnt = request.getParameter("lnt");
-    WifiDTO wi = wifiService.getWifiDetail(key, new LocationDTO(lat, lnt));
+    WifiDTO wi = wifiService.findWifiDetail(key, new LocationDTO(lat, lnt));
 
 %>
 

@@ -18,7 +18,7 @@ class HistoryRepositoryTest {
 
     @Test
     void select20History(){
-        List<History> list = historyRepository.selectLatest20History();
+        List<History> list = historyRepository.findAll();
         for(History h : list){
             System.out.println(h);
         }

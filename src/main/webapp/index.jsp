@@ -31,25 +31,34 @@
     >Home</button>
 
     <button class="button"
-            onclick="location.href='history.jsp'"
+            onclick="location.href='history/history.jsp'"
     >위치 히스토리 목록</button>
 
     <button class="button"
-            onclick="location.href='load-wifi.jsp'"
+            onclick="location.href='wifi/load-wifi.jsp'"
+            style="background-color: #f5c2c7"
     >Open API 와이파이 정보 가져오기</button>
-    <button class="button">북마크 보기</button>
-    <button class="button">북마크 그룹 관리</button>
 
+    <button class="button"
+            onclick="location.href='bookmark/bookmark-list.jsp'"
+    >북마크 보기</button>
 
+    <button class="button"
+            onclick="location.href='bookmark-group/bookmark-group.jsp'"
+    >북마크 그룹 관리</button>
 </div>
 <div>
-    <form method="get" action="list.jsp">
+    <form method="get" action="history/save-history.jsp">
         LAT: <input type="text" id="latitude" name="latitude" value="0.0"/>
         <label for="latitude"></label>
+
         LNT: <input type="text" id="longitude" name="longitude" value="0.0"/>
         <label for="longitude"></label>
+
         <button type="button" class="button" onclick="getLocation()">내 위치 불러오기</button>
-        <button type="submit" class="button">근처 WIFI 정보 보기</button>
+        <button type="submit" class="button"
+            style="background-color: lightblue"
+        >근처 WIFI 정보 보기</button>
     </form>
 </div>
 

@@ -15,7 +15,7 @@ import java.util.List;
 public class HistoryRepository {
     public void saveHistory(LocationDTO loc){
         String sql = " insert into history " +
-                " (lat, lnt, date_time)" +
+                " (lat, lnt, search_date_time)" +
                 " values " +
                 " (?, ?, ?); ";
         double lat = loc.getLat();
@@ -38,7 +38,7 @@ public class HistoryRepository {
         }
     }
 
-    public List<History> selectLatest20History(){
+    public List<History> findAll(){
         String sql = "select * from history " +
                 " order by id desc " +
                 " limit 20; ";
@@ -59,7 +59,7 @@ public class HistoryRepository {
                 history.setId(rs.getLong("id"));
                 history.setLat(rs.getDouble("lat"));
                 history.setLnt(rs.getDouble("lnt"));
-                history.setDateTime(rs.getString("date_time"));
+                history.setDateTime(rs.getString("search_date_time"));
                 list.add(history);
             }
 
@@ -71,7 +71,7 @@ public class HistoryRepository {
         return list;
     }
 
-    public void deleteById(long id){
+    public void deleteHistory(long id){
         String sql = "delete from history where id=?";
 
         Connection con = null;

@@ -20,12 +20,12 @@
 <body>
 <h1>위치 히스토리 목록</h1>
 <button class="button"
-        onclick="location.href='list.jsp'"
+        onclick="location.href='../list.jsp'"
 >Home</button>
 
 <%
   HistoryService historyService = new HistoryService();
-  List<History> historyList = historyService.getLatest20Histories();
+  List<History> historyList = historyService.findLatest20Histories();
 %>
 
 <table>
@@ -49,14 +49,15 @@
     <td><%=h.getDateTime()%></td>
     <td>
       <button class="button"
-              onclick="location.href='list.jsp?latitude=<%=h.getLat()%>&longitude=<%=h.getLnt()%>'"
+              onclick="location.href='../list.jsp?latitude=<%=h.getLat()%>&longitude=<%=h.getLnt()%>'"
+              style="background-color: lightblue"
       >조회</button>
       <button class="button"
               onclick="location.href='delete-history.jsp?id=<%=h.getId()%>'"
+              style="background-color: #f5c2c7"
       >삭제</button>
     </td>
   </tr>
-
   <%
     }
   %>
