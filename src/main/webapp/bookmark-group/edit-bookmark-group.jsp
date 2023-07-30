@@ -1,5 +1,6 @@
 <%@ page import="com.example.bookmark_group.BookmarkGroupService" %>
 <%@ page import="com.example.dto.BookmarkGroupDTO" %>
+<%@ page import="com.example.bookmark_group.BookmarkGroup" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,7 @@
     int priority = Integer.parseInt(request.getParameter("priority"));
 
     BookmarkGroupDTO dto = new BookmarkGroupDTO(name, priority);
+
     service.editBookmarkGroup(id, dto);
     response.sendRedirect("bookmark-group.jsp");
 %>

@@ -19,9 +19,29 @@
 </head>
 <body>
 <h1>위치 히스토리 목록</h1>
-<button class="button"
-        onclick="location.href='../list.jsp'"
->Home</button>
+<div class="button-container">
+  <button class="button"
+          onclick="location.href='../list.jsp'"
+  >Home</button>
+
+  <button class="button"
+          onclick="location.href='history.jsp'"
+  >위치 히스토리 목록</button>
+
+  <button class="button"
+          style="background-color: #f5c2c7"
+          onclick="location.href='../wifi/load-wifi.jsp'"
+  >Open API 와이파이 정보 가져오기</button>
+
+  <button class="button"
+          onclick="location.href='../bookmark/bookmark-list.jsp'"
+  >북마크 보기</button>
+
+  <button class="button"
+          onclick="location.href='../bookmark-group/bookmark-group.jsp'"
+  >북마크 그룹 관리</button>
+</div>
+
 
 <%
   HistoryService historyService = new HistoryService();

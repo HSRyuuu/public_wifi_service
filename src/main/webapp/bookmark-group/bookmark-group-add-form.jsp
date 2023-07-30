@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/form.css">
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
+    <script src="../js/validation.js"></script>
 
     <title>Delete history</title>
 </head>
@@ -31,10 +32,7 @@
     >북마크 그룹 관리</button>
 </div>
 
-<%
-
-%>
-<form method="get" action="add-bookmark-group.jsp">
+<form method="get" action="add-bookmark-group.jsp" onsubmit="return validateBookmarkGroupForm()">
     <table>
         <colgroup>
             <col style="width: 20%"/>

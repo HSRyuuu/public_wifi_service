@@ -1,4 +1,5 @@
 <%@ page import="com.example.bookmark_group.BookmarkGroupService" %>
+<%@ page import="com.example.bookmark_group.BookmarkGroup" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -8,10 +9,17 @@
 
     <link rel="stylesheet" type="text/css" href="/css/form.css">
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
+    <script src="../js/validation.js"></script>
 
     <title>Delete history</title>
 </head>
 <body>
+<%
+    long id = Long.parseLong(request.getParameter("id"));
+    BookmarkGroupService service = new BookmarkGroupService();
+    BookmarkGroup bmg = service.findById(id);
+%>
+
 <h1>북마크 그룹 수정</h1>
 <div class="button-container">
     <button class="button"
@@ -31,10 +39,7 @@
     >북마크 그룹 관리</button>
 </div>
 
-<%
-    long id = Long.parseLong(request.getParameter("id"));
-%>
-<form method="get" action="edit-bookmark-group.jsp">
+<form method="get" action="edit-bookmark-group.jsp" onsubmit="return validateBookmarkGroupForm()">
     <table>
         <input type="hidden" id="id" name="id" value="<%=id%>">
         <colgroup>
@@ -46,7 +51,7 @@
             <th>북마크 이름</th>
             <td>
                 <input type="text" id="name" name="name"
-                       placeholder="이름을 입력하세요."
+                       value="<%=bmg.getName()%>"
                        style="text-align: left">
                 <label for="name"></label>
             </td>
@@ -55,7 +60,7 @@
             <th>순서</th>
             <td>
                 <input type="text" id="priority" name="priority"
-                       placeholder="순서를 입력하세요."
+                       value="<%=bmg.getPriority()%>"
                        style="text-align: left">
                 <label for="priority"></label>
             </td>
