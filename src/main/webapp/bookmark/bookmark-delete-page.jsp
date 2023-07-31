@@ -1,6 +1,5 @@
 <%@ page import="com.example.bookmark.BookmarkService" %>
 <%@ page import="com.example.bookmark.Bookmark" %>
-<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -8,16 +7,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
 
-    <link rel="stylesheet" type="text/css" href="/css/table_small.css">
+    <link rel="stylesheet" type="text/css" href="/css/detail.css">
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
 
-    <script src="../js/location.js"></script>
+    <script src="../js/confirm.js"></script>
 
-
-    <title>북마크 목록</title>
+    <title>북마크 삭제</title>
 </head>
 <body>
-<h1>북마크 목록</h1>
+<h1>북마크 삭제</h1>
 <div class="button-container">
     <button class="button"
             onclick="location.href='../list.jsp'"
@@ -36,7 +34,7 @@
     </button>
 
     <button class="button"
-            onclick="location.href='bookmark-list.jsp'"
+            onclick="location.href='../bookmark/bookmark-list.jsp'"
     >북마크 보기
     </button>
 
@@ -45,51 +43,49 @@
     >북마크 그룹 관리
     </button>
 </div>
+<p>북마크를 삭제하시겠습니까?</p>
 
 <%
+    long id = Long.parseLong(request.getParameter("id"));
     BookmarkService bookmarkService = new BookmarkService();
-    List<Bookmark> list = bookmarkService.findAll();
+    Bookmark bm = bookmarkService.findById(id);
+
 %>
 
 <table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>북마크 이름</th>
-        <th>와이파이명</th>
-        <th>등록일자</th>
-        <th>비고</th>
-    </tr>
-    </thead>
+    <colgroup>
+        <col style="width: 20%"/>
+        <col style="width: 80%"/>
+    </colgroup>
     <tbody>
-    <%
-        for (Bookmark b : list) {
-    %>
     <tr>
-        <td><%=b.getId()%>
+        <th>북마크 그룹 이름</th>
+        <td><%=bm.getBookmarkGroupName()%>
         </td>
-        <td><%=b.getBookmarkGroupName()%>
+    </tr>
+    <tr>
+        <th>와이파이명</th>
+        <td><%=bm.getWifiName()%>
         </td>
-
-        <td>
-            <a href="javascript:void(0);" onclick="getLocationAndGoToDetail('<%=b.getWifiManageNumber()%>')">
-                <%=b.getWifiName()%>
-            </a>
+    </tr>
+    <tr>
+        <th>등록일자</th>
+        <td><%=bm.getDateTime()%>
         </td>
-        <td><%=b.getDateTime()%>
-        </td>
-        <td>
-            <button class="button"
-                    onclick="location.href='bookmark-delete-page.jsp?id=<%=b.getId()%>'"
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button type="button" class="button" onclick="location.href='bookmark-list.jsp'">돌아가기</button>
+            <button type="button" class="button"
                     style="background-color: #f5c2c7"
+                    onclick="confirmDelete('delete-bookmark.jsp?id=<%=id%>')"
             >삭제
             </button>
         </td>
     </tr>
-    <%
-        }
-    %>
+
     </tbody>
 </table>
+
 </body>
 </html>

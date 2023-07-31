@@ -1,4 +1,4 @@
-<%@ page import="com.example.history.HistoryService" %>
+<%@ page import="com.example.bookmark.BookmarkService" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -6,14 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <title>Delete history</title>
+    <title>Delete bookmark</title>
 </head>
 <body>
 <%
-    HistoryService historyService = new HistoryService();
+    BookmarkService bookmarkService = new BookmarkService();
     String id = request.getParameter("id");
-    historyService.deleteHistoryById(id);
-    response.sendRedirect("history.jsp");
+    bookmarkService.delete(Long.parseLong(id));
+
+    response.sendRedirect("bookmark-list.jsp");
 %>
 
 </body>

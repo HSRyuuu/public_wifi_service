@@ -16,7 +16,7 @@ class WifiRepositoryTest {
 
     @Test
     void loadAll() throws IOException {
-        int rows = wifiService.loadAllWifiOnDB();
+        int rows = wifiService.loadAllWifiFromApiToDB();
         System.out.println("=======");
         System.out.println("rows = " + rows);
         System.out.println("DB 확인 해보기");
@@ -27,7 +27,7 @@ class WifiRepositoryTest {
     void getTop20Wifi(){
         LocationDTO loc = new LocationDTO(37.147590, 127.149493);
 
-        List<WifiDTO> top20Wifi = wifiService.findTop20Wifi(loc);
+        List<WifiDTO> top20Wifi = wifiService.findWifisByLoc(loc);
 
         assertThat(top20Wifi.size()).isEqualTo(20);
 

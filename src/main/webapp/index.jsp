@@ -13,39 +13,39 @@
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <title>Wifi List</title>
 
     <script src="js/location.js"></script>
-
+    <title>Wifi Home</title>
 </head>
 <body>
 <h1>와이파이 정보</h1>
-<%
-    WifiService wifiService = new WifiService();
-%>
-
 
 <div class="button-container">
     <button class="button"
             onclick="location.href='index.jsp'"
-    >Home</button>
+    >Home
+    </button>
 
     <button class="button"
             onclick="location.href='history/history.jsp'"
-    >위치 히스토리 목록</button>
+    >위치 히스토리 목록
+    </button>
 
     <button class="button"
             onclick="location.href='wifi/load-wifi.jsp'"
             style="background-color: #f5c2c7"
-    >Open API 와이파이 정보 가져오기</button>
+    >Open API 와이파이 정보 가져오기
+    </button>
 
     <button class="button"
             onclick="location.href='bookmark/bookmark-list.jsp'"
-    >북마크 보기</button>
+    >북마크 보기
+    </button>
 
     <button class="button"
             onclick="location.href='bookmark-group/bookmark-group.jsp'"
-    >북마크 그룹 관리</button>
+    >북마크 그룹 관리
+    </button>
 </div>
 <div>
     <form method="get" action="history/save-history.jsp">
@@ -57,8 +57,9 @@
 
         <button type="button" class="button" onclick="getLocation()">내 위치 불러오기</button>
         <button type="submit" class="button"
-            style="background-color: lightblue"
-        >근처 WIFI 정보 보기</button>
+                style="background-color: lightblue"
+        >근처 WIFI 정보 보기
+        </button>
     </form>
 </div>
 

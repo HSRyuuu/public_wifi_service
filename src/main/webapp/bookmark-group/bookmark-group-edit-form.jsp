@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
     <script src="../js/validation.js"></script>
 
-    <title>Delete history</title>
+    <title>북마크 그룹 수정</title>
 </head>
 <body>
 <%
@@ -24,19 +24,23 @@
 <div class="button-container">
     <button class="button"
             onclick="location.href='../list.jsp'"
-    >Home</button>
+    >Home
+    </button>
 
     <button class="button"
             onclick="location.href='../history/history.jsp'"
-    >위치 히스토리 목록</button>
+    >위치 히스토리 목록
+    </button>
 
     <button class="button"
             onclick="location.href='../bookmark/bookmark-list.jsp'"
-    >북마크 보기</button>
+    >북마크 보기
+    </button>
 
     <button class="button"
             onclick="location.href='bookmark-group.jsp'"
-    >북마크 그룹 관리</button>
+    >북마크 그룹 관리
+    </button>
 </div>
 
 <form method="get" action="edit-bookmark-group.jsp" onsubmit="return validateBookmarkGroupForm()">

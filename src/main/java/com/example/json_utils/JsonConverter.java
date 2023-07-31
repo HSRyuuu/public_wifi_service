@@ -1,6 +1,6 @@
 package com.example.json_utils;
 
-import com.example.dto.WifiInfo;
+import com.example.dto.WifiApiDTO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -13,15 +13,15 @@ public class JsonConverter {
      * @param json
      * @return WifiInfo[] 배열
      */
-    public WifiInfo[] jsonToWifiObject(String json) {
+    public WifiApiDTO[] jsonToWifiObject(String json) {
         JsonObject jObj = JsonParser.parseString(json).getAsJsonObject();
 
         JsonObject jsonObject = jObj.getAsJsonObject("TbPublicWifiInfo");
         JsonArray rowArray = jsonObject.getAsJsonArray("row");
 
         Gson gson = new Gson();
-        WifiInfo[] wifiInfos = gson.fromJson(rowArray, WifiInfo[].class);
-        return wifiInfos;
+        WifiApiDTO[] wifiApiDTOS = gson.fromJson(rowArray, WifiApiDTO[].class);
+        return wifiApiDTOS;
     }
 
     /**
@@ -39,9 +39,9 @@ public class JsonConverter {
     /**
      * 테스트용 출력 메서드
      */
-    public void printObject(WifiInfo[] wifiInfos) {
+    public void printObject(WifiApiDTO[] wifiApiDTOS) {
         int i = 1;
-        for (WifiInfo wi : wifiInfos) {
+        for (WifiApiDTO wi : wifiApiDTOS) {
             System.out.println("[" + i++ + "]");
             System.out.println(wi);
             System.out.println("====================");

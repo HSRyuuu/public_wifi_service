@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryRepository {
-    public void saveHistory(LocationDTO loc){
+    public void saveHistory(LocationDTO loc) {
         String sql = " insert into history " +
                 " (lat, lnt, search_date_time)" +
                 " values " +
@@ -38,7 +38,7 @@ public class HistoryRepository {
         }
     }
 
-    public List<History> findAll(){
+    public List<History> findAll() {
         String sql = "select * from history " +
                 " order by id desc " +
                 " limit 20; ";
@@ -54,7 +54,7 @@ public class HistoryRepository {
             pstmt = conn.prepareStatement(sql);
 
             rs = pstmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 History history = new History();
                 history.setId(rs.getLong("id"));
                 history.setLat(rs.getDouble("lat"));
@@ -71,7 +71,7 @@ public class HistoryRepository {
         return list;
     }
 
-    public void deleteHistory(long id){
+    public void deleteHistory(long id) {
         String sql = "delete from history where id=?";
 
         Connection con = null;
@@ -86,20 +86,19 @@ public class HistoryRepository {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        } finally{
-            close(con,pstmt,null);
+        } finally {
+            close(con, pstmt, null);
         }
     }
 
-
-
-    private String getDateTimeNow(){
+    private String getDateTimeNow() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")).toString();
     }
 
     private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
         DBConnectionUtil.close(conn, pstmt, rs);
     }
+
     private Connection getConnection() {
         return DBConnectionUtil.getConnection();
     }

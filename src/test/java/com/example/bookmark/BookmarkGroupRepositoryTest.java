@@ -13,7 +13,7 @@ class BookmarkGroupRepositoryTest {
     @Test
     void addBookmarkGroup() {
         BookmarkGroupDTO dto = new BookmarkGroupDTO("이름2",2);
-        repository.addBookmarkGroup(dto);
+        repository.save(dto);
     }
 
     @Test

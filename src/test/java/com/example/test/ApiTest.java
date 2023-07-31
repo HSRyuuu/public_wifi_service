@@ -2,7 +2,7 @@ package com.example.test;
 
 import com.example.api.ApiExplorer;
 import com.example.json_utils.JsonConverter;
-import com.example.dto.WifiInfo;
+import com.example.dto.WifiApiDTO;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -14,8 +14,8 @@ public class ApiTest {
     @Test
     void printTest() throws IOException {
         String apiJson = explorer.getApiJson(1, 3);
-        WifiInfo[] wifiInfos = jsonConverter.jsonToWifiObject(apiJson);
-        jsonConverter.printObject(wifiInfos);
+        WifiApiDTO[] wifiApiDTOS = jsonConverter.jsonToWifiObject(apiJson);
+        jsonConverter.printObject(wifiApiDTOS);
     }
 
 

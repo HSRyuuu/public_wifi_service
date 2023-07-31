@@ -9,9 +9,10 @@
 <body>
 <div style="margin: 20px">
     <h1>Error!</h1>
-    <h3>error code : <%=response.getStatus() %></h3>
+    <h3>error code : <%=response.getStatus() %>
+    </h3>
     <br>
-    <a href="../list.jsp">[ Home으로 이동하기 ]</a>
+    <a href="../list.jsp">( Home으로 이동하기 )</a>
 </div>
 
 </body>

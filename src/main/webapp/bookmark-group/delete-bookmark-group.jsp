@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/css/form.css">
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
 
-    <title>Delete history</title>
+    <title>Delete bookmark group </title>
 </head>
 <body>
 <%

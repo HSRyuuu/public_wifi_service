@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
     <script src="../js/validation.js"></script>
 
-    <title>Delete history</title>
+    <title>북마크 그룹 추가</title>
 </head>
 <body>
 <h1>북마크 그룹 추가</h1>
