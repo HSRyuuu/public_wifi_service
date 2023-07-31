@@ -7,6 +7,7 @@ import com.example.json_utils.JsonConverter;
 import com.example.dto.WifiApiDTO;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,7 @@ public class WifiService {
         wifiRepository.deleteAll();
         int rowsAmount = apiExplorer.getRowsAmount();
         loadAllWifi(rowsAmount);
+
         return rowsAmount;
     }
 
@@ -41,14 +43,20 @@ public class WifiService {
      *
      * @param rowsAmount : 전체 row 수
      */
-    private void loadAllWifi(int rowsAmount) throws IOException {
+    private void loadAllWifi(int rowsAmount) throws IOException{
         int cnt = 0;
+        List<WifiApiDTO[]> list = new ArrayList<>();
         for (int i = 1; i <= rowsAmount; i += 1000) {
             String jsonStr = apiExplorer.getApiJson(i, i + 999);
             WifiApiDTO[] wifiApiDTOS = jsonConverter.jsonToWifiObject(jsonStr);
             cnt += wifiApiDTOS.length;
-            wifiRepository.loadAll(wifiApiDTOS);
+            list.add(wifiApiDTOS);
             System.out.println(cnt);
+        }
+        try {
+            wifiRepository.loadAll(list);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

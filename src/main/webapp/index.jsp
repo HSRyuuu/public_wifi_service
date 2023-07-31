@@ -32,8 +32,8 @@
     </button>
 
     <button class="button"
-            onclick="location.href='wifi/load-wifi.jsp'"
             style="background-color: #f5c2c7"
+            onclick="location.href='wifi/load-wifi-waiting.html'"
     >Open API 와이파이 정보 가져오기
     </button>
 

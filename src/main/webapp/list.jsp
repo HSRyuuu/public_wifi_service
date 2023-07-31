@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
 
     <script src="js/location.js"></script>
+    <script src="js/loading.js"></script>
 
     <title>와이파이 정보</title>
 </head>
@@ -38,7 +39,7 @@
 
     <button class="button"
             style="background-color: #f5c2c7"
-            onclick="location.href='wifi/load-wifi.jsp'"
+            onclick="location.href='wifi/load-wifi-waiting.html'"
     >Open API 와이파이 정보 가져오기
     </button>
 

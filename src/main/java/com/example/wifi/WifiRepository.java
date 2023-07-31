@@ -14,9 +14,9 @@ import java.util.NoSuchElementException;
 public class WifiRepository {
 
     /**
-     * @param wifiApiDTOS : API로부터 얻어온 wifi data배열
+     * api로부터 얻어온 데이터를 db에 모두 저장
      */
-    public void loadAll(WifiApiDTO[] wifiApiDTOS) {
+    public void loadAll(List<WifiApiDTO[]> list) throws SQLException {
 
         String sql = getInsertQueryForLoadAll();
 
@@ -27,12 +27,17 @@ public class WifiRepository {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
 
-            for (WifiApiDTO wi : wifiApiDTOS) {
-                setPstmtForInsert(wi, pstmt);
+            conn.setAutoCommit(false);
+            for(WifiApiDTO[] wifiApiDTOS : list){
+                for (WifiApiDTO wi : wifiApiDTOS) {
+                    setPstmtForInsert(wi, pstmt);
+                }
+                pstmt.executeBatch();
             }
-            pstmt.executeBatch();
+            conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            conn.rollback();
         } finally {
             close(conn, pstmt, null);
         }
