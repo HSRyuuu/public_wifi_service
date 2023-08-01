@@ -22,25 +22,17 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    implementation 'org.projectlombok:lombok:1.18.22'
     compileOnly('javax.servlet:javax.servlet-api:4.0.1')
 
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:8.5.91'
-
     implementation 'org.xerial:sqlite-jdbc:3.36.0' // SQLite JDBC 드라이버
-
-
-    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.7'
-
-    //OkHttp
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.7'
 
+    //lombok
+    implementation 'org.projectlombok:lombok:1.18.22'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    //테스트에서 lombok 사용
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 

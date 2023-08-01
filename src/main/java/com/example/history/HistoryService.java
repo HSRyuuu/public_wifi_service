@@ -12,10 +12,10 @@ public class HistoryService {
     }
 
     public void saveHistory(LocationDTO loc) {
-        historyRepository.saveHistory(loc);
+        historyRepository.save(loc);
     }
 
     public void deleteHistoryById(String id) {
-        historyRepository.deleteHistory(Long.parseLong(id));
+        historyRepository.deleteById(Long.parseLong(id));
     }
 }

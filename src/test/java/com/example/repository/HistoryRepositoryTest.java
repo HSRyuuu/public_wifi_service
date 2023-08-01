@@ -13,7 +13,7 @@ class HistoryRepositoryTest {
     @Test
     void saveHistory() {
         LocationDTO loc = new LocationDTO("37.123", "126.678");
-        historyRepository.saveHistory(loc);
+        historyRepository.save(loc);
     }
 
     @Test

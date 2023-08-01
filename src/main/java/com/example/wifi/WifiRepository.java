@@ -14,73 +14,6 @@ import java.util.NoSuchElementException;
 public class WifiRepository {
 
     /**
-     * api로부터 얻어온 데이터를 db에 모두 저장
-     */
-    public void loadAll(List<WifiApiDTO[]> list) throws SQLException {
-
-        String sql = getInsertQueryForLoadAll();
-
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-
-            conn.setAutoCommit(false);
-            for(WifiApiDTO[] wifiApiDTOS : list){
-                for (WifiApiDTO wi : wifiApiDTOS) {
-                    setPstmtForInsert(wi, pstmt);
-                }
-                pstmt.executeBatch();
-            }
-            conn.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            conn.rollback();
-        } finally {
-            close(conn, pstmt, null);
-        }
-    }
-
-    /**
-     * loadAll 메서드에서 사용할 String sql 반환
-     */
-    private String getInsertQueryForLoadAll() {
-        return " insert into wifi" +
-                " (manage_number, district, name, addr1, addr2, install_floor, install_type, install_corp, service_type, network_type, install_year, in_or_out_door, wifi_access_env ,lat ,lnt ,work_date_time )" +
-                " values" +
-                " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    }
-
-    /**
-     * wifiApiDTO를 받아서 pstmt.addBatch()로 배치 처리
-     * @param wifiApiDTO
-     */
-    private void setPstmtForInsert(WifiApiDTO wifiApiDTO, PreparedStatement pstmt) throws SQLException {
-        double lnt = Double.parseDouble(wifiApiDTO.getLNT());//x좌표
-        double lat = Double.parseDouble(wifiApiDTO.getLAT());//y좌표
-        pstmt.setString(1, wifiApiDTO.getX_SWIFI_MGR_NO());
-        pstmt.setString(2, wifiApiDTO.getX_SWIFI_WRDOFC());
-        pstmt.setString(3, wifiApiDTO.getX_SWIFI_MAIN_NM());
-        pstmt.setString(4, wifiApiDTO.getX_SWIFI_ADRES1());
-        pstmt.setString(5, wifiApiDTO.getX_SWIFI_ADRES2());
-        pstmt.setString(6, wifiApiDTO.getX_SWIFI_INSTL_FLOOR());
-        pstmt.setString(7, wifiApiDTO.getX_SWIFI_INSTL_TY());
-        pstmt.setString(8, wifiApiDTO.getX_SWIFI_INSTL_MBY());
-        pstmt.setString(9, wifiApiDTO.getX_SWIFI_SVC_SE());
-        pstmt.setString(10, wifiApiDTO.getX_SWIFI_CMCWR());
-        pstmt.setString(11, wifiApiDTO.getX_SWIFI_CNSTC_YEAR());
-        pstmt.setString(12, wifiApiDTO.getX_SWIFI_INOUT_DOOR());
-        pstmt.setString(13, wifiApiDTO.getX_SWIFI_REMARS3());
-        pstmt.setDouble(14, lnt);
-        pstmt.setDouble(15, lat);
-        pstmt.setString(16, wifiApiDTO.getWORK_DTTM());
-
-        pstmt.addBatch();
-    }
-
-    /**
      * @param loc : 이용자 현재 위치
      */
     public List<WifiDTO> selectTop30Wifi(LocationDTO loc) {
@@ -89,7 +22,8 @@ public class WifiRepository {
 
         List<WifiDTO> wifiList = new ArrayList<>();
 
-        //SQLite에서는 삼각함수를 쓸 수 없어서 피타고라스 공식을 이용해 근사치를 기준을 30개를 불러온 뒤,
+        //TODO : 이거 수정할 수 있으면 좋음
+        // SQLite에서는 삼각함수를 쓸 수 없어서 피타고라스 공식을 이용해 근사치를 기준을 30개를 불러온 뒤,
         // 이후에 WifiService에서 데이터 재가공 / 신뢰성을 높이려면 limit 개수를 더 크게하면 됨.
         String sql = "select * from wifi " +
                 " order by sqrt( power(lat-?,2) + power(lnt-?, 2)) " +
@@ -108,7 +42,8 @@ public class WifiRepository {
             pstmt.setDouble(2, lnt);
 
             rs = pstmt.executeQuery();
-            getResult20(wifiList, rs);
+
+            addResultSetOnList(wifiList, rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,7 +57,7 @@ public class WifiRepository {
     /**
      * result set으로부터 WifiDTO를 만들어서 wifiList에 저장
      */
-    private void getResult20(List<WifiDTO> wifiList, ResultSet rs) throws SQLException {
+    private void addResultSetOnList(List<WifiDTO> wifiList, ResultSet rs) throws SQLException {
         while (rs.next()) {
             WifiDTO wifiDTO = new WifiDTO();
             wifiDTO.setManageNumber(rs.getString("manage_number"));
@@ -145,7 +80,7 @@ public class WifiRepository {
         }
     }
 
-    public WifiDTO findByManageNumber(String key) {
+    public WifiDTO findByManageNumber(String manageNumber) {
         String sql = "select * from wifi " +
                 " where manage_number=? ";
         Connection conn = null;
@@ -155,7 +90,7 @@ public class WifiRepository {
             conn = getConnection();
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, key);
+            pstmt.setString(1, manageNumber);
 
             rs = pstmt.executeQuery();
 
@@ -170,7 +105,7 @@ public class WifiRepository {
     }
 
     /**
-     * result set으로부터 WifiDTO에 값을 저장
+     * ResultSet 으로부터 WifiDTO에 값을 저장
      */
     private WifiDTO getOneWifi(ResultSet rs) throws SQLException {
         WifiDTO wifiDTO = new WifiDTO();
@@ -215,6 +150,18 @@ public class WifiRepository {
         } finally {
             close(con, pstmt, null);
         }
+    }
+
+    /**
+     * SQLite 말고 다른 DB 사용시 이 sql 사용
+     */
+    private String getSqlForHaverSine(){
+
+        String sql = "SELECT * from wifi " +
+                " order by ( " +
+                " 6371 * acos(cos(radians(lat))*cos(radians(37.4811992))*cos(radians(lnt) - radians(126.8955438)) + sin(radians(lat))*sin(radians(37.4811992))))" +
+                " limit 20;";
+        return sql;
     }
 
     private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {

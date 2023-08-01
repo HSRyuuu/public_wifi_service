@@ -1,7 +1,6 @@
 package com.example.bookmark;
 
 import com.example.dto.WifiDTO;
-import com.example.wifi.Wifi;
 import com.example.wifi.WifiService;
 
 import java.time.LocalDateTime;
@@ -21,7 +20,7 @@ public class BookmarkService {
     }
 
     public void save(String key, String bookmarkGroupName) {
-        WifiDTO wifiDTO = wifiService.findById(key);
+        WifiDTO wifiDTO = wifiService.findByManageNumber(key);
         Bookmark bookmark = new Bookmark();
         bookmark.setBookmarkGroupName(bookmarkGroupName);
         bookmark.setWifiManageNumber(key);

@@ -3,10 +3,12 @@ package com.example.bookmark;
 import com.example.bookmark_group.BookmarkGroup;
 import com.example.bookmark_group.BookmarkGroupRepository;
 import com.example.dto.BookmarkGroupDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+@Slf4j
 class BookmarkGroupRepositoryTest {
     static BookmarkGroupRepository repository = new BookmarkGroupRepository();
 

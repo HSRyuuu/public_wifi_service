@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryRepository {
-    public void saveHistory(LocationDTO loc) {
+    public void save(LocationDTO loc) {
         String sql = " insert into history " +
                 " (lat, lnt, search_date_time)" +
                 " values " +
@@ -71,7 +71,7 @@ public class HistoryRepository {
         return list;
     }
 
-    public void deleteHistory(long id) {
+    public void deleteById(long id) {
         String sql = "delete from history where id=?";
 
         Connection con = null;

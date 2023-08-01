@@ -16,7 +16,7 @@ class WifiRepositoryTest {
 
     @Test
     void loadAll() throws IOException {
-        int rows = wifiService.loadAllWifiFromApiToDB();
+        int rows = wifiService.loadAllWifiOnDB();
         System.out.println("=======");
         System.out.println("rows = " + rows);
         System.out.println("DB 확인 해보기");
@@ -43,7 +43,7 @@ class WifiRepositoryTest {
     void findByManageNumberTest(){
         String key = "---EP000001";
 
-        WifiDTO wifiDTO = wifiService.findWifiDetail(key, new LocationDTO(37.147590, 127.149493));
+        WifiDTO wifiDTO = wifiService.getWifiWithDistance(key, new LocationDTO(37.147590, 127.149493));
 
         assertThat(wifiDTO.getManageNumber()).isEqualTo(key);
 

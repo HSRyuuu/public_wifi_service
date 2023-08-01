@@ -56,7 +56,7 @@
     String key = request.getParameter("key");
     String lat = request.getParameter("lat");
     String lnt = request.getParameter("lnt");
-    WifiDTO wi = wifiService.findWifiDetail(key, new LocationDTO(lat, lnt));
+    WifiDTO wi = wifiService.getWifiWithDistance(key, new LocationDTO(lat, lnt));
 
     BookmarkGroupService bmgService = new BookmarkGroupService();
     List<BookmarkGroup> bmgList = bmgService.findAllGroupList();

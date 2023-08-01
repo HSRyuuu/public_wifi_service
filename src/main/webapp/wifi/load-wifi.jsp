@@ -15,7 +15,7 @@
 <body>
 <%
     WifiService wifiService = new WifiService();
-    int rows = wifiService.loadAllWifiFromApiToDB();
+    int rows = wifiService.loadAllWifiOnDB();
 %>
 <div style="display: flex; justify-content: center; align-items: center">
     <h1><%=rows%>개의 WIFI 정보를 정상적으로 저장하였습니다.</h1>

@@ -116,11 +116,6 @@ public class BookmarkRepository {
         }
     }
 
-
-    private String getDateTimeNow() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")).toString();
-    }
-
     private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
         DBConnectionUtil.close(conn, pstmt, rs);
     }

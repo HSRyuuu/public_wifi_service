@@ -18,7 +18,6 @@
 <script>
     alert("저장되었습니다.");
     history.back();
-
 </script>
 
 </body>
