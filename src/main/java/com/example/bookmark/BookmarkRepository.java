@@ -116,6 +116,49 @@ public class BookmarkRepository {
         }
     }
 
+    public void deleteByBookmarkGroupName(String name){
+        String sql = "delete from Bookmark where bookmark_group_name=?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, name);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
+
+    public void updateBookmarkGroupName(String before, String after){
+        String sql = " update Bookmark " +
+                " set bookmark_group_name=? " +
+                " where bookmark_group_name=?;";
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setString(1, after);
+            pstmt.setString(2, before);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
+
     private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
         DBConnectionUtil.close(conn, pstmt, rs);
     }

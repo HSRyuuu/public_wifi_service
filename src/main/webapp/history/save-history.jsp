@@ -12,10 +12,10 @@
 <%
     HistoryService historyService = new HistoryService();
 
-    String lat = request.getParameter("latitude");
-    String lnt = request.getParameter("longitude");
+    String lat = request.getParameter("lat");
+    String lnt = request.getParameter("lnt");
     historyService.saveHistory(new LocationDTO(lat, lnt));
-    response.sendRedirect("../list.jsp?latitude=" + lat + "&longitude=" + lnt);
+    response.sendRedirect("../list.jsp?lat=" + lat + "&lnt=" + lnt);
 %>
 
 </body>

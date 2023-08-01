@@ -79,7 +79,7 @@
         </td>
         <td>
             <button class="button"
-                    onclick="location.href='../list.jsp?latitude=<%=h.getLat()%>&longitude=<%=h.getLnt()%>'"
+                    onclick="location.href='../list.jsp?lat=<%=h.getLat()%>&lnt=<%=h.getLnt()%>'"
                     style="background-color: lightblue"
             >조회
             </button>

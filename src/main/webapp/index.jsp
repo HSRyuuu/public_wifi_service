@@ -49,11 +49,11 @@
 </div>
 <div>
     <form method="get" action="history/save-history.jsp">
-        LAT: <input type="text" id="latitude" name="latitude" value="0.0"/>
-        <label for="latitude"></label>
+        LAT: <input type="text" id="lat" name="lat" value="0.0"/>
+        <label for="lat"></label>
 
-        LNT: <input type="text" id="longitude" name="longitude" value="0.0"/>
-        <label for="longitude"></label>
+        LNT: <input type="text" id="lnt" name="lnt" value="0.0"/>
+        <label for="lnt"></label>
 
         <button type="button" class="button" onclick="getLocation()">내 위치 불러오기</button>
         <button type="submit" class="button"

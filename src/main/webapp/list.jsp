@@ -53,8 +53,8 @@
     </button>
 </div>
 <%
-    String lat = request.getParameter("latitude");
-    String lnt = request.getParameter("longitude");
+    String lat = request.getParameter("lat");
+    String lnt = request.getParameter("lnt");
     if (lat == null) {
         lat = "0.0";
     }
@@ -66,11 +66,11 @@
 %>
 <div>
     <form method="get" action="history/save-history.jsp">
-        LAT: <input type="text" id="latitude" name="latitude" value="<%=lat%>">
-        <label for="latitude"></label>
+        LAT: <input type="text" id="lat" name="lat" value="<%=lat%>">
+        <label for="lat"></label>
 
-        LNT: <input type="text" id="longitude" name="longitude" value="<%=lnt%>"/>
-        <label for="longitude"></label>
+        LNT: <input type="text" id="lnt" name="lnt" value="<%=lnt%>"/>
+        <label for="lnt"></label>
 
         <button type="button" class="button" onclick="getLocation()"
         >내 위치 불러오기
