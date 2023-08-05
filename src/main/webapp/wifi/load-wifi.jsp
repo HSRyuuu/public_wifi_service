@@ -7,7 +7,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>Load-WIFI</title>
     <link rel="stylesheet" type="text/css" href="/css/buttons.css">
     <title>와이파이 정보 불러오기..</title>
 

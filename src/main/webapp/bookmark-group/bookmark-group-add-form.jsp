@@ -24,6 +24,12 @@
     >위치 히스토리 목록</button>
 
     <button class="button"
+            style="background-color: #f5c2c7"
+            onclick="location.href='../wifi/load-wifi-waiting.html'"
+    >Open API 와이파이 정보 가져오기
+    </button>
+
+    <button class="button"
             onclick="location.href='../bookmark/bookmark-list.jsp'"
     >북마크 보기</button>
 
