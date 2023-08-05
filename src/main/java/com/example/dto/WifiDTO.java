@@ -25,5 +25,10 @@ public class WifiDTO {
 
     public WifiDTO() {
     }
-
+    public void setDistance(double distance){
+        this.distance = String.format("%.4f", distance);
+    }
+    public void setDistance(String distance){
+        this.distance = String.format("%.4f", distance);
+    }
 }

@@ -1,14 +1,11 @@
 package com.example.bookmark;
 
-import com.example.bookmark_group.BookmarkGroup;
 import com.example.connection.DBConnectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 

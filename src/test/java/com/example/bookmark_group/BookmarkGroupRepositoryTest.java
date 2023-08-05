@@ -1,4 +1,4 @@
-package com.example.bookmark;
+package com.example.bookmark_group;
 
 import com.example.bookmark_group.BookmarkGroup;
 import com.example.bookmark_group.BookmarkGroupRepository;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-@Slf4j
+
 class BookmarkGroupRepositoryTest {
     static BookmarkGroupRepository repository = new BookmarkGroupRepository();
 

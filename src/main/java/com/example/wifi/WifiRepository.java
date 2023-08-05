@@ -3,7 +3,6 @@ package com.example.wifi;
 import com.example.connection.DBConnectionUtil;
 import com.example.dto.LocationDTO;
 import com.example.dto.WifiDTO;
-import com.example.dto.WifiApiDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,18 +15,27 @@ public class WifiRepository {
     /**
      * @param loc : 이용자 현재 위치
      */
-    public List<WifiDTO> selectTop30Wifi(LocationDTO loc) {
+    public List<WifiDTO> selectTop20Wifi(LocationDTO loc) {
         double lat = loc.getLat();
         double lnt = loc.getLnt();
 
         List<WifiDTO> wifiList = new ArrayList<>();
 
-        //TODO : 이거 수정할 수 있으면 좋음
-        // SQLite에서는 삼각함수를 쓸 수 없어서 피타고라스 공식을 이용해 근사치를 기준을 30개를 불러온 뒤,
-        // 이후에 WifiService에서 데이터 재가공 / 신뢰성을 높이려면 limit 개수를 더 크게하면 됨.
-        String sql = "select * from wifi " +
-                " order by sqrt( power(lat-?,2) + power(lnt-?, 2)) " +
-                " limit 30; ";
+
+        String sql = "SELECT manage_number, district, name, addr1, addr2, " +
+                " install_floor, install_type, install_corp, service_type, " +
+                " network_type, install_year, in_or_out_door, wifi_access_env, " +
+                " lat, lnt, work_date_time,  " +
+                " ( " +
+                " 6371 * " +
+                " acos(cos(radians(?))*cos(radians(lat))*cos(radians(lnt) " +
+                " - radians(?))" +
+                " + sin(radians(?))*sin(radians(lat)))" +
+                " ) as distance" +
+                " from wifi " +
+                " order by distance " +
+                " limit 20;";
+
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -40,6 +48,7 @@ public class WifiRepository {
 
             pstmt.setDouble(1, lat);
             pstmt.setDouble(2, lnt);
+            pstmt.setDouble(3, lat);
 
             rs = pstmt.executeQuery();
 
@@ -76,13 +85,28 @@ public class WifiRepository {
             wifiDTO.setLat(rs.getString("lat"));
             wifiDTO.setLnt(rs.getString("lnt"));
             wifiDTO.setWorkDateTime(rs.getString("work_date_time"));
+            wifiDTO.setDistance(rs.getDouble("distance"));
             wifiList.add(wifiDTO);
         }
     }
 
-    public WifiDTO findByManageNumber(String manageNumber) {
-        String sql = "select * from wifi " +
-                " where manage_number=? ";
+    public WifiDTO findByManageNumber(String manageNumber, LocationDTO loc) {
+        double lat = loc.getLat();
+        double lnt = loc.getLnt();
+
+        String sql = "SELECT manage_number, district, name, addr1, addr2, " +
+                " install_floor, install_type, install_corp, service_type, " +
+                " network_type, install_year, in_or_out_door, wifi_access_env, " +
+                " lat, lnt, work_date_time,  " +
+                " ( " +
+                " 6371 * " +
+                " acos(cos(radians(?))*cos(radians(lat))*cos(radians(lnt) " +
+                " - radians(?))" +
+                " + sin(radians(?))*sin(radians(lat)))" +
+                " ) as distance" +
+                " from wifi " +
+                " where manage_number=?; ";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -90,7 +114,10 @@ public class WifiRepository {
             conn = getConnection();
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, manageNumber);
+            pstmt.setDouble(1, lat);
+            pstmt.setDouble(2, lnt);
+            pstmt.setDouble(3, lat);
+            pstmt.setString(4, manageNumber);
 
             rs = pstmt.executeQuery();
 
@@ -126,6 +153,7 @@ public class WifiRepository {
             wifiDTO.setLnt(rs.getString("lnt"));
             wifiDTO.setLat(rs.getString("lat"));
             wifiDTO.setWorkDateTime(rs.getString("work_date_time"));
+            wifiDTO.setDistance(rs.getDouble("distance"));
         } else {
             throw new NoSuchElementException("WIFI not found");
         }
@@ -150,18 +178,6 @@ public class WifiRepository {
         } finally {
             close(con, pstmt, null);
         }
-    }
-
-    /**
-     * SQLite 말고 다른 DB 사용시 이 sql 사용
-     */
-    private String getSqlForHaverSine(){
-
-        String sql = "SELECT * from wifi " +
-                " order by ( " +
-                " 6371 * acos(cos(radians(lat))*cos(radians(37.4811992))*cos(radians(lnt) - radians(126.8955438)) + sin(radians(lat))*sin(radians(37.4811992))))" +
-                " limit 20;";
-        return sql;
     }
 
     private void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {

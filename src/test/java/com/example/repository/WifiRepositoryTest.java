@@ -25,7 +25,7 @@ class WifiRepositoryTest {
 
     @Test
     void getTop20Wifi(){
-        LocationDTO loc = new LocationDTO(37.147590, 127.149493);
+        LocationDTO loc = new LocationDTO(37.5488603, 127.149493);
 
         List<WifiDTO> top20Wifi = wifiService.findWifisByLoc(loc);
 

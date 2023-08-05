@@ -36,16 +36,4 @@ public class JsonConverter {
         return jsonObject.getAsJsonPrimitive("list_total_count").getAsInt(); //전체 row 수
     }
 
-    /**
-     * 테스트용 출력 메서드
-     */
-    public void printObject(WifiApiDTO[] wifiApiDTOS) {
-        int i = 1;
-        for (WifiApiDTO wi : wifiApiDTOS) {
-            System.out.println("[" + i++ + "]");
-            System.out.println(wi);
-            System.out.println("====================");
-        }
-    }
-
 }

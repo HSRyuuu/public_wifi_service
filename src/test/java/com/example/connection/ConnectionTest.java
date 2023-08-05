@@ -1,22 +1,28 @@
 package com.example.connection;
 
 
-import org.junit.jupiter.api.Assertions;
+
+
+import lombok.extern.flogger.Flogger;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static com.example.connection.ConnectionConst.*;
+import static org.assertj.core.api.Assertions.*;
 
 
 public class ConnectionTest {
     @Test
-    void driverManager() {
+    void driverManager() throws SQLException {
         Connection con = DBConnectionUtil.getConnection();
         System.out.println(con.getClass());
-        Assertions.assertTrue(con != null);
+
+        assertThat(con).isNotNull();
+
+        con.close();
     }
 
 }

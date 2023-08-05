@@ -19,13 +19,11 @@ public class WifiService {
     private static JsonConverter jsonConverter = new JsonConverter();
 
     public WifiDTO getWifiWithDistance(String manageNumber, LocationDTO loc) {
-        WifiDTO wifiDTO = wifiRepository.findByManageNumber(manageNumber);
-        wifiDTO.setDistance(calculateDistance(new LocationDTO(wifiDTO.getLat(), wifiDTO.getLnt()), loc));
-        return wifiDTO;
+        return wifiRepository.findByManageNumber(manageNumber, loc);
     }
 
     public WifiDTO findByManageNumber(String manageNumber) {
-        return wifiRepository.findByManageNumber(manageNumber);
+        return wifiRepository.findByManageNumber(manageNumber, new LocationDTO(0.0, 0.0));
     }
 
     /**
@@ -63,31 +61,9 @@ public class WifiService {
 
     /**
      * 입력받은 위도, 경도 값으로 가장 가까운 20개의 데이터를 불러와서 반환한다.
-     * repository에서 가져온 30개의 데이터를 Haversine 공식에 의해 측정된 거리로 재가공
-     *
-     * @return List<WifiDTO> 가장 가까운 20개의 리스트
      */
     public List<WifiDTO> findWifisByLoc(LocationDTO loc) {
-        List<WifiDTO> wifiDTOList = wifiRepository.selectTop30Wifi(loc);
-        for (WifiDTO wi : wifiDTOList) {
-            wi.setDistance(calculateDistance(loc, new LocationDTO(wi.getLat(), wi.getLnt())));
-        }
-        Collections.sort(wifiDTOList, (WifiDTO x, WifiDTO y) -> {
-            if (Double.parseDouble(x.getDistance()) > Double.parseDouble(y.getDistance())) {
-                return 1;
-            } else {
-                return -1;
-            }
-        });
-
-        List<WifiDTO> list = new ArrayList<>();
-        for (int i = 0; i < wifiDTOList.size(); i++) {
-            if (i >= 20) {
-                break;
-            }
-            list.add(wifiDTOList.get(i));
-        }
-        return list;
+        return wifiRepository.selectTop20Wifi(loc);
     }
 
     /**
