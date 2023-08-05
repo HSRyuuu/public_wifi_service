@@ -1,20 +1,24 @@
 table {
     width: 100%;
 }
-th, td{
+
+th, td {
     text-align: center;
     vertical-align: middle;
-    border: 1px outset  #ddd;
+    border: 1px outset #ddd;
     padding: 6px;
 }
-th{
+
+th {
     background-color: mediumseagreen;
     padding: 10px;
     color: white;
 }
-tr:nth-child(even){
+
+tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-tr:nth-child(odd){
+
+tr:nth-child(odd) {
     background-color: white;
 }

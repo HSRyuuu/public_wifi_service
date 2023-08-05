@@ -37,8 +37,6 @@ public class ApiExplorer {
         urlBuilder.append("/" + URLEncoder.encode(String.valueOf(pageStart), "UTF-8"));
         //요청 종료 (페이징)
         urlBuilder.append("/" + URLEncoder.encode(String.valueOf(pageEnd), "UTF-8"));
-// 상위 5개는 필수적으로 순서바꾸지 않고 호출해야 합니다.
-// 서비스별 추가 요청 인자이며 자세한 내용은 각 서비스별 '요청인자'부분에 자세히 나와 있습니다.
         //X_SWIFI_WRDOFC : 자치구
         urlBuilder.append("/" + URLEncoder.encode("", "UTF-8"));
         //X_SWIFI_ADRES1 : 도로명 주소
@@ -48,7 +46,6 @@ public class ApiExplorer {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        //System.out.println("Response code: " + conn.getResponseCode());
 
         BufferedReader br;
         // 서비스코드가 정상이면 200~300사이의 숫자가 나옴

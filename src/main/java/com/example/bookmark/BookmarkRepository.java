@@ -113,7 +113,7 @@ public class BookmarkRepository {
         }
     }
 
-    public void deleteByBookmarkGroupName(String name){
+    public void deleteByBookmarkGroupName(String name) {
         String sql = "delete from Bookmark where bookmark_group_name=?";
 
         Connection con = null;
@@ -133,7 +133,7 @@ public class BookmarkRepository {
         }
     }
 
-    public void updateBookmarkGroupName(String before, String after){
+    public void updateBookmarkGroupName(String before, String after) {
         String sql = " update Bookmark " +
                 " set bookmark_group_name=? " +
                 " where bookmark_group_name=?;";

@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 public class JsonConverter {
     /**
      * json String을 받아서 WifiInfo 배열로 변환
+     *
      * @param json
      * @return WifiInfo[] 배열
      */

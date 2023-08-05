@@ -25,7 +25,7 @@ public class WifiLoader {
             pstmt = conn.prepareStatement(sql);
 
             conn.setAutoCommit(false);
-            for(WifiApiDTO[] wifiApiDTOS : list){
+            for (WifiApiDTO[] wifiApiDTOS : list) {
                 for (WifiApiDTO wi : wifiApiDTOS) {
                     setPstmtForInsert(wi, pstmt);
                 }
@@ -52,6 +52,7 @@ public class WifiLoader {
 
     /**
      * wifiApiDTO를 받아서 pstmt.addBatch()로 배치 처리
+     *
      * @param wifiApiDTO
      */
     private void setPstmtForInsert(WifiApiDTO wifiApiDTO, PreparedStatement pstmt) throws SQLException {

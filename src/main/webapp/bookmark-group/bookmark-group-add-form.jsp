@@ -17,11 +17,13 @@
 <div class="button-container">
     <button class="button"
             onclick="location.href='../list.jsp'"
-    >Home</button>
+    >Home
+    </button>
 
     <button class="button"
             onclick="location.href='../history/history.jsp'"
-    >위치 히스토리 목록</button>
+    >위치 히스토리 목록
+    </button>
 
     <button class="button"
             style="background-color: #f5c2c7"
@@ -31,11 +33,13 @@
 
     <button class="button"
             onclick="location.href='../bookmark/bookmark-list.jsp'"
-    >북마크 보기</button>
+    >북마크 보기
+    </button>
 
     <button class="button"
             onclick="location.href='bookmark-group.jsp'"
-    >북마크 그룹 관리</button>
+    >북마크 그룹 관리
+    </button>
 </div>
 
 <form method="get" action="add-bookmark-group.jsp" onsubmit="return validateBookmarkGroupForm()">

@@ -18,14 +18,6 @@ public class WifiService {
     private static WifiLoader wifiLoader = new WifiLoader();
     private static JsonConverter jsonConverter = new JsonConverter();
 
-    public WifiDTO getWifiWithDistance(String manageNumber, LocationDTO loc) {
-        return wifiRepository.findByManageNumber(manageNumber, loc);
-    }
-
-    public WifiDTO findByManageNumber(String manageNumber) {
-        return wifiRepository.findByManageNumber(manageNumber, new LocationDTO(0.0, 0.0));
-    }
-
     /**
      * DB에 모든 와이파이 데이터 저장
      */
@@ -64,6 +56,14 @@ public class WifiService {
      */
     public List<WifiDTO> findWifisByLoc(LocationDTO loc) {
         return wifiRepository.selectTop20Wifi(loc);
+    }
+
+    public WifiDTO getWifiWithDistance(String manageNumber, LocationDTO loc) {
+        return wifiRepository.findByManageNumber(manageNumber, loc);
+    }
+
+    public WifiDTO findByManageNumber(String manageNumber) {
+        return wifiRepository.findByManageNumber(manageNumber, new LocationDTO(0.0, 0.0));
     }
 
 }
