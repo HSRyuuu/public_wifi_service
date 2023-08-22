@@ -34,7 +34,7 @@ public class BookmarkService {
     }
 
     private String getDateTimeNow() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")).toString();
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
     }
 
 }

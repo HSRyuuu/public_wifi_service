@@ -1,8 +1,8 @@
 <%@ page import="com.example.wifi.WifiService" %>
 <%@ page import="com.example.dto.WifiDTO" %>
 <%@ page import="com.example.dto.LocationDTO" %>
-<%@ page import="com.example.bookmark_group.BookmarkGroupService" %>
-<%@ page import="com.example.bookmark_group.BookmarkGroup" %>
+<%@ page import="com.example.bookmark.group.BookmarkGroupService" %>
+<%@ page import="com.example.bookmark.group.BookmarkGroup" %>
 <%@ page import="java.util.List" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>

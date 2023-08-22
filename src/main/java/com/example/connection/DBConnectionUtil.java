@@ -13,7 +13,7 @@ public class DBConnectionUtil {
             e.printStackTrace();
         }
         try {
-            Connection connection = DriverManager.getConnection(url);
+            Connection connection = DriverManager.getConnection(URL);
             return connection;
         } catch (SQLException e) {
             throw new IllegalStateException(e);

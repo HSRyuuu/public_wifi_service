@@ -1,4 +1,4 @@
-package com.example.bookmark_group;
+package com.example.bookmark.group;
 
 import com.example.connection.DBConnectionUtil;
 import com.example.dto.BookmarkGroupDTO;

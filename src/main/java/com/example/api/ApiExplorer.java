@@ -26,13 +26,13 @@ public class ApiExplorer {
     public String getApiJson(int pageStart, int pageEnd) throws IOException {
         StringBuilder sb = new StringBuilder();
         //URL
-        StringBuilder urlBuilder = new StringBuilder(serverUrl);
+        StringBuilder urlBuilder = new StringBuilder(SERVER_URL);
         //인증키
-        urlBuilder.append("/" + URLEncoder.encode(authenticationKey, "UTF-8"));
+        urlBuilder.append("/" + URLEncoder.encode(AUTHENTICATION_KEY, "UTF-8"));
         //요청 파일 타입 (xml,xmlf,xls,json)
         urlBuilder.append("/" + URLEncoder.encode("json", "UTF-8"));
         //서비스 명(대소문자 구분 필수)
-        urlBuilder.append("/" + URLEncoder.encode(serviceName, "UTF-8"));
+        urlBuilder.append("/" + URLEncoder.encode(SERVICE_NAME, "UTF-8"));
         //요청시작 (페이징)
         urlBuilder.append("/" + URLEncoder.encode(String.valueOf(pageStart), "UTF-8"));
         //요청 종료 (페이징)

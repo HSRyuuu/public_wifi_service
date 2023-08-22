@@ -1,4 +1,4 @@
-package com.example.bookmark_group;
+package com.example.bookmark.group;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -9,7 +9,6 @@ import com.example.dto.WifiApiDTO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class WifiService {
@@ -42,7 +41,6 @@ public class WifiService {
             WifiApiDTO[] wifiApiDTOS = jsonConverter.jsonToWifiObject(jsonStr);
             cnt += wifiApiDTOS.length;
             list.add(wifiApiDTOS);
-            System.out.println(cnt);
         }
         try {
             wifiLoader.loadAll(list);

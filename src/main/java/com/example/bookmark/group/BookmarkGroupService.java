@@ -1,4 +1,4 @@
-package com.example.bookmark_group;
+package com.example.bookmark.group;
 
 import com.example.bookmark.BookmarkRepository;
 import com.example.dto.BookmarkGroupDTO;
